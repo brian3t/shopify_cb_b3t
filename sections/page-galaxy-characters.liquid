@@ -1,0 +1,44 @@
+<section class="section section--page page page--galaxy galaxy js-galaxy-character-section {{ section.id }}">
+    <div class="container container--tiny">
+        <div class="section__title section__title--center">
+            <h3 class="section__title-text h3">THE CHARACTERS OF CRAFTERRA GALAXY</h3>
+        </div>
+    </div>
+    <div class="container container--medium">
+        <div class="o-layout">
+            {% for block in section.blocks %}
+                <div class="o-layout__item u-1/2 u-1/2@phab u-1/4@tab">
+                    <div class="galaxy-character-item">
+                        {% if block.settings.galaxy_images %}
+                            <img src="{{ block.settings.galaxy_images | img_url: '585x' }}" alt="{{ block.settings.image.alt }}" />
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name":"Crafterra Characters",
+    "class":"js-section__page-galaxy-characters",
+    "blocks":[
+       {
+          "type":"article",
+          "name":"Galleries",
+          "settings":[
+             {
+                "type":"image_picker",
+                "id":"galaxy_images",
+                "label":"Image"
+             }
+          ]
+       }
+    ]
+ }
+{% endschema %}
+
+{% javascript %}
+
+{% endjavascript %}

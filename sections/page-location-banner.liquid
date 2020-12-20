@@ -1,0 +1,83 @@
+{% if section.blocks.size > 0 %}
+<section class="section section--{{ section.id }} section--full-bg" data-section-id="{{ section.id }}" data-section-type="home-promo">
+    <div class="home-promo">
+        
+        {% for block in section.blocks %}
+        <div class="home-promo__item" {{ block.shopify_attributes }}>
+            <div class="home-promo__item-bg"></div>
+            <div class="container-full">
+
+                <div class="home-promo__content">
+                    <div class="o-layout">
+                        <div class="o-layout__item u-1/1 u-1/1@desk">
+                            {% unless block.settings.image == blank %}
+                                {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+                                <div class="o-ratio o-ratio--custom" style="padding-bottom:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;">
+                                    <div class="o-ratio__content img-lazyload-cover">
+                                        
+                                        <img class="home-promo__media-img img-lazyload lazyload js"
+                                            data-src="{{ img_url }}"
+                                            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                                            data-sizes="auto"
+                                            alt="{{ block.settings.image.alt }}">
+                                        <noscript>
+                                            <img class="home-promo__media-img"
+                                                src="{{ block.settings.image | img_url: '900x' }}" 
+                                                alt="{{ block.settings.image.alt }}">
+                                        </noscript>
+
+                                    </div>
+                                </div>
+
+                            {% else %}
+                                {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endunless %}
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+{% endif %}
+
+{% if section.blocks.size == 0 %}
+    <!-- <div class="placeholder-noblocks">
+        {{ 'homepage.onboarding.no_content' | t }}
+    </div> -->
+    <div class="banner-default">
+        <div class="container container--tiny">
+            <div class="section__title section__title--center">
+                <h1 class="section__title-text h2">{{ page.title }}</h1>
+                <h2 class="section__sub-title-text h3"></h2>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name":"Location Banner",
+    "class":"js-section__location-banner",
+    "blocks":[
+        {
+            "type":"image",
+            "name":"Image block",
+            "settings":[
+                {
+                    "type":"image_picker",
+                    "id":"image",
+                    "label":"Image",
+                    "info":"2000 x 700px width recommended."
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<section class="section section--1566456250311 section--full" data-section-id="1566456250311" data-section-type="home-carousel">
+    <div class="home-carousel galaxy-carousel home-carousel--minimal home-carousel--title-2 js-home-carousel home-carousel--full" data-autoplay="false" data-slick='{"autoplay": false, "autoplaySpeed": 10000}'>
+        {% for block in section.blocks %}
+      	<div>
+            <div class="home-carousel__item home-carousel__item--image home-carousel__item--1566456250311-0 home-carousel__item--middle home-carousel__item--center home-carousel__item--white home-carousel__item--medium" data-slide-id="0">
+                <div class="home-carousel__bg-wrapper">
+                    <div
+                        class="home-carousel__bg home-carousel__bg--15664562503110 u-bg-cover u-bg-overlay img-lazyload lazyload js"
+                        data-bgset="{{ block.settings.image | img_url: '' }}"
+                        data-sizes="auto"
+                        data-parent-fit="cover"
+                        style="background-position: center center;"
+                    ></div>
+                </div>
+            </div>
+        </div>
+      	{% endfor %}
+    </div>
+</section>
+{% schema %}
+{
+	"name":"Craft Galaxy slide",
+    "class":"js-section__page-galaxy",
+	"blocks":[
+       {
+            "type": "image",
+            "name": "Image slide",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image",
+                    "info": "1400px width recommended."
+                }
+			]
+		}
+	]
+ }
+{% endschema %}

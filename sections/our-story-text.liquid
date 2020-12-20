@@ -1,0 +1,42 @@
+<section class="section section--page page page--galaxy galaxy js-galaxy-page">
+    <div class="container container--tiny">
+        <div class="section__title section__title--center">
+            <h2 class="section__title-text h3 text-center">{{ page.title }}</h2>
+        </div>
+    </div>
+    <div class="container container--medium">
+        <div class="o-layout">
+            {% for block in section.blocks %}
+            <div class="galaxy-item">
+                <div class="o-layout__item u-1/1 u-1/1@desk our-story-text">
+                    <div>
+                        {{ block.settings.text }}
+                    </div>
+                </div>s
+            </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name":"Our Story text",
+    "class":"js-section__page-our-story-text",
+    "blocks":[
+       {
+          "type":"article",
+          "name":"Article",
+          "settings":[
+             {
+                "type":"richtext",
+                "id":"text",
+                "label":"Text",
+                "default":"<p>Please enter your story</p>"
+             }
+          ]
+       }
+    ]
+ }
+{% endschema %}

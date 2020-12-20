@@ -1,0 +1,54 @@
+<div id="shopify-section-anatomy" class="shopify-section">
+    <div class="grid locations">
+        <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
+          <h2 class="sticky-title">{{ section.settings.local_title_section }}</h2>
+          <button class="zipcode">Enter zip code</button>
+        </div>
+        <ul class="listlocation">
+            {% for block in section.blocks %}
+            <li>
+                <img src="{{ 'location.png' | asset_url }}" />
+                <br/>
+                <div class="title_store">
+                    {{ block.settings.title }} <br/>
+                    {{ block.settings.title_state }}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Local delivery",
+    "class":"js-section__page-location-local",
+    "settings": [
+        {
+            "type":"text",
+            "id":"local_title_section",
+            "label":"Title section",
+            "default": "Local delivery"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Locations",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title location",
+                    "default": "Text"
+                },
+                {
+                    "type": "text",
+                    "id": "title_state",
+                    "label": "Title state",
+                    "default": "Text"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

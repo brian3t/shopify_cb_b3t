@@ -1,0 +1,59 @@
+<div id="shopify-section-sweeteners" class="shopify-section">
+  <div class="sweeteners">
+    <div class="grid">
+      <div class="span-all">
+        <div class="sweeteners__title h1 section__title-text center">Natural Ingredients</div>
+      </div>
+    </div>
+
+    <!-- Desktop grid -->
+    <div class="sweeteners__grid-container grid">
+      <ul class="sweeteners__grid span-all">
+        {% for block in section.blocks %}
+        <li class="sweeteners__item">
+          <div class="sweeteners__item__content-wrap">
+            <div class="sweeteners__item__title h4 c-purple">{{ block.settings.title1 }}</div>
+            <div class="sweeteners__item__desc body-3 c-navy"><p>{{ block.settings.description }}</p></div>
+            <div class="sweeteners__item__image-wrap">
+              <img class="sweeteners__item__image object-fit-contain" src="{{ block.settings.icon1 | img_url: '212x' }}" alt="">
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name":"Nutrition Differences",
+    "class":"js-section__page-nutrition-difference",
+    "max_blocks": 4,
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title1",
+                    "label": "Heading",
+                    "default": "Text"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Promote your brand by using a powerful combination of buttons, custom text, page content and images.</p>"
+                },
+            {
+                    "type": "image_picker",
+                    "id": "icon1",
+                    "label": "Icon 1",
+                    "info": "56px width recommended."
+                }
+          ]
+      }
+    ]
+  }
+{% endschema %}

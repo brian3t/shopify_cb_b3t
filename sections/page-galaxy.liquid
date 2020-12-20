@@ -1,0 +1,59 @@
+<section class="section section--page page page--galaxy galaxy js-galaxy-page show-mobile">
+    <div class="container container--tiny">
+        <div class="section__title section__title--center">
+            <h1 class="section__title-text h2">{{ page.title }}</h1>
+        </div>
+    </div>
+    <div class="container container--medium">
+        <div class="o-layout">
+            {% for block in section.blocks %}
+            <div class="galaxy-item">
+                <div class="o-layout__item u-1/1 u-2/4@desk galaxy-item-image">
+                    {% if block.settings.image %}
+                        <img src="{{ block.settings.image | img_url: '585x' }}" alt="{{ block.settings.image.alt }}" />
+                    {% endif %}
+                </div>
+                <div class="o-layout__item u-1/1 u-2/4@desk galaxy-item-desc">
+                    <h3 class="blog__title h4">{{ block.settings.title }}</h3>
+                    <div>
+                        {{ block.settings.text }}
+                    </div>
+                </div>s
+            </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name":"Craft Galaxy section",
+    "class":"js-section__page-galaxy",
+    "blocks":[
+       {
+          "type":"article",
+          "name":"Article",
+          "settings":[
+             {
+                "type":"text",
+                "id":"title",
+                "label":"Heading",
+                "default":"Article Heading"
+             },
+             {
+                "type":"richtext",
+                "id":"text",
+                "label":"Text",
+                "default":"<p>Please enter your story</p>"
+             },
+             {
+                "type":"image_picker",
+                "id":"image",
+                "label":"Image"
+             }
+          ]
+       }
+    ]
+ }
+{% endschema %}
