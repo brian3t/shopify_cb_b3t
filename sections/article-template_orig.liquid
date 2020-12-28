@@ -28,6 +28,11 @@
             <div class="section__title section__title--center">
                 <h1 class="section__title-text h2">{{ article.title }}</h1>
             </div>
+            {% if section.settings.show_date %}
+                <div class="article__date label label--brand">
+                    <p class="article__date-text label__text">{{ article.published_at | date: format: 'date' }}</p>
+                </div>
+            {% endif %}
         </div>
 
         <div class="article__content rte" itemprop="articleBody">
