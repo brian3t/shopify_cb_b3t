@@ -6338,3 +6338,6 @@ Article
   z-index: 2000;
   /*background-color: #e5c319;*/
 }
+#top_donate_btn{
+  display: flex;
+}
