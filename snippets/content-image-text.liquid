@@ -1,0 +1,14 @@
+<div class="home-rich-text">
+    <div class="container{% if section.settings.full_width %} container--medium{% else %} container--tiny{% endif %}">
+        {% if section.settings.section_title != blank %}
+            <div class="section__title section__title--desc section__title--center home-rich-text__title">
+                <h2 class="section__title-text">{{ section.settings.section_title | escape }}</h2>
+            </div>
+        {% endif %}
+        {% if section.settings.text != blank %}
+            <div class="home-rich-text__content u-text-center rte">
+                {{ section.settings.text }}
+            </div>
+        {% endif %}
+    </div>
+</div>

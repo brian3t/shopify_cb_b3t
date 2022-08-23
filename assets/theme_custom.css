@@ -1,0 +1,13 @@
+.promo-pop {
+    top: 120px !important;
+    left: 34% !important;
+    width: 31% !important;
+}
+
+@media screen and (max-width: 760px) {
+    .promo-pop {
+        top: 68px !important;
+        left: 6% !important;
+        width: 88% !important;
+    }
+}

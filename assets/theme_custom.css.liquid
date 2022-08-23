@@ -1,0 +1,13 @@
+.promo-pop {
+    top: {{ settings.popup_top }}px !important;
+    left: {{ settings.popup_width | times: "-1" | plus: 100 | divided_by: 2 }}% !important;
+    width: {{ settings.popup_width }}% !important;
+}
+
+@media screen and (max-width: 760px) {
+    .promo-pop {
+        top: {{ settings.popup_top_mobile }}px !important;
+        left: {{ settings.popup_width_mobile | times: "-1" | plus: 100 | divided_by: 2 }}% !important;
+        width: {{ settings.popup_width_mobile }}% !important;
+    }
+}

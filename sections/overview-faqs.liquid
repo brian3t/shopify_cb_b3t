@@ -1,0 +1,56 @@
+{% if section.settings.enable != false %}
+<section class="block-faq">
+    <div class="container container--medium">
+        <h2 class="block-faq__title">FAQ</h2>
+        <div class="block-faq__content">
+            <div class="block-faq__accordion" id="list_faq">
+                {% for block in section.blocks %}
+                    <div class="block-faq__items">
+                        <h4 class="block-faq__header" id="heading{{ forloop.index }}">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.index }}" aria-expanded="false" aria-controls="collapse{{ forloop.index }}">
+                                {{ block.settings.text }}
+                            </button>
+                        </h4>
+                        <div class="collapse" id="collapse{{ forloop.index }}" aria-labelledby="heading{{ forloop.index }}" data-parent="#list_faq">
+                            <div class="block-faq__items-content">{{ block.settings.richtext }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+    "name": "FAQs section",
+    "class": "js-section__overview-faqs",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable",
+            "label": "Enable",
+            "default": false
+        }
+    ],
+    "blocks":[
+        {
+            "type": "article",
+            "name": "FAQ",
+            "settings": [
+                {
+                    "type":"text",
+                    "id":"text",
+                    "label":"Question"
+                },
+                {
+                    "type":"richtext",
+                    "id":"richtext",
+                    "label":"Answer"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

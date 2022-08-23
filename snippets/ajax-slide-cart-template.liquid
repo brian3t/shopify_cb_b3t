@@ -1,0 +1,78 @@
+
+<div class="siderbar-cart" id="cart-content" style="display: none;">
+    <div class="cart_head">
+        <div class="close"> <img src="{{ 'cart-close.svg' | asset_url }}" alt="" /></div>
+    </div>
+    <div class="card-content pt-40">
+        <h4 class="title-section">{{ 'cart.general.title' | t }}</h4>
+        {% if settings.uway_slide_cart_announcement_enable_header %}
+            <div class="siderbar-cart__annoucement_wrap">
+                <span class="siderbar-cart__annoucement_incomplete">{{ settings.uway_slide_cart_announcement_incomplete_text_header }}</span>
+                <span class="siderbar-cart__annoucement_complete"> {{ settings.uway_slide_cart_announcement_complete_text_header }} </span>
+                {% if settings.uway_slide_cart_max_product %}
+                    <div class="siderbar-cart__annoucement_bar" >
+                        <span class="siderbar-cart__annoucement_bar_content" data-limit-shipping="{{ settings.uway_slide_cart_max_product }}"></span>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="cart-content-wrap">
+            <div class="wrap-mini-cart-content"></div>
+            {% if settings.uway_slide_cart_upsell_enable_section %}
+                <div class="wrap-mini-cart-upsell" data="{{ settings.uway_slide_cart_upsell_collection }}">
+                    {% for product in collections[settings.uway_slide_cart_upsell_collection].products %}
+                        {% form 'product', product, class: "js-product-form", data-index:product.variants.first.id %}
+                            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector" hidden>
+                            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                            <div class="wrap-mini-cart-upsell__item" >
+                                <div class="wrap-mini-cart-upsell__product_image"><img src="{{ product | img_url }}"/></div>
+                                <div class="wrap-mini-cart-upsell__product_title">{{ product.title }}</div>
+                                <div class="wrap-mini-cart-upsell__add_to_cart" data-id="{{ product.variants.first.id }}">
+                                    <button type="submit" name="add" class="js-product-add">
+                                        <span class="js-product-add-text">Add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endform %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if settings.uway_slide_cart_announcement_enable_footer %}
+                <div class="siderbar-cart__annoucement_wrap annoucement-footer">
+                    <span class="siderbar-cart__annoucement-footer__content">{{ settings.uway_slide_cart_announcement_message_footer }}</span>
+                </div>
+            {% endif %}
+            <div class="wrap-mini-cart-content-footer"></div>
+            <div class="wrap-mini-cart-action">
+                <a href="{{ routes.root_url }}" class="button-cart button button-white button-icon icon_02">{{ 'cart.general.continue_shopping' | t }}</a>
+                <form action="{{ routes.cart_url }}" method="post" class="cart-form" novalidate>
+                    <button type="submit" class="button-checkout button button-icon cart__checkout{% if settings.cart_terms %} js-cart-checkout-validate{% endif %}" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+                </form>
+            </div>
+            <div class="icon icon__loading"></div>
+        </div>
+    </div>
+</div>
+
+<span class="shipping-text" data-text="{{ settings.uway_slide_cart_shipping_text }}" hidden></span>
+<div class="siderbar-cart-mobile" style="display: none;" hidden>
+    <div class="siderbar-cart-mobile__close">x</div>
+    <ul class="wrap-mini-cart-content-mobile"></ul>
+    <div class="wrap-mini-cart-content-footer-mobile"></div>
+    <div class="wrap-mini-cart-action">
+        <a href="#" class="icon-cart button-cart button button-white button-icon icon_02">View Cart</a>
+        <form action="{{ routes.cart_url }}" method="post" class="cart-form" novalidate>
+            <button type="submit" class="button-checkout button button-icon cart__checkout{% if settings.cart_terms %} js-cart-checkout-validate{% endif %}" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+        </form>
+        <span class="discount-message">{{ settings.uway_slide_cart_discount_message }}</span>
+    </div>
+</div>
+
+{%- assign hasApplyDiscount = "no" -%}
+{% if settings.uway_slide_cart_discount_code_enable %}
+    {%- assign hasApplyDiscount = "yes" -%}
+{% endif %}
+
+{% if settings.uway_slide_cart_discount_code %}
+    <span class="apply-discount" hidden ds-auto="{{settings.uway_slide_cart_discount_code}}" ds-has-apply="{{ hasApplyDiscount }}" ></span>
+{% endif %}

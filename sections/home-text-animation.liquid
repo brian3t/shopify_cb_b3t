@@ -1,0 +1,65 @@
+{% if section.settings.text_animation_enable %}
+    <section class="section section--{{ section.id }}">
+        <div class="ticker">
+            <div class="ticker__list">
+                {% for block in section.blocks %}
+            <div class="ticker__item {% if request.page_type == 'collection' %} ticker__item-collection {% endif %}" style="width: {{section.settings.homepage_width_text_animation}}">
+                        <img src="{{ block.settings.homepage_icon_text_animation | img_url: '' }}" alt="{{ block.settings.image.alt }}" />
+                        <p>{{ block.settings.homepage_text_animation }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        var ticker = document.querySelector('.ticker')
+            , list = document.querySelector('.ticker__list')
+            , clone = list.cloneNode(true)
+        
+        ticker.append(clone);
+    </script>
+{% endif %}
+
+{% schema %}
+{
+    "name":"Text Animation",
+    "class":"js-section__homepage-text-animation",
+    "settings":[
+        {
+            "type":"checkbox",
+            "id":"text_animation_enable",
+            "label":"Enable",
+            "default":false
+        },
+        {
+            "type":"text",
+            "id":"homepage_width_text_animation",
+            "label":"Width PX"
+        }
+    ],
+    "blocks":[
+        {
+            "type":"article",
+            "name":"Items",
+            "settings":[
+                {
+                    "type":"richtext",
+                    "id":"homepage_text_animation",
+                    "label":"Text"
+                },
+                {
+                    "type":"image_picker",
+                    "id":"homepage_icon_text_animation",
+                    "label":"Icons"
+                }
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "name":"Text Animation Ticker",
+            "category":"Uway Customize"
+        }
+    ]
+}
+{% endschema %}

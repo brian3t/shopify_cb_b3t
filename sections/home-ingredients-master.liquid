@@ -1,0 +1,109 @@
+{% if section.settings.ingre_master_enable %}
+    <section class="shopify-section-home-ingredients-master">
+        <div class="container">
+            <div class="shopify-section-home-ingredients-master__title">
+                <h2>{{ section.settings.home_ingre_master_title }}</h2>
+                <p class="">{{ section.settings.home_ingre_master_description }}</p>
+            </div>
+
+            <div class="shopify-section-home-ingredients-master__wrapper">
+                {% for block in section.blocks %}
+                    <div class="ingredients-holder holder{{ forloop.index }}">
+                        <span class="navigable"><span></span></span>
+                        <img src="{{ block.settings.ingre_master_item_image | img_url: '' }}"  class="img-responsive first-vis">
+                        <div class="popup-content">
+                            <div class="popup-content__wrapper">
+                                <h3>{{ block.settings.ingre_master_item_title }}</h3>
+                                <p>{{ block.settings.ingre_master_item_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+          	<a href="{{ section.settings.home_ingre_master_lable_url }}" class="btn btn-more ">{{ section.settings.home_ingre_master_label_button }}</a>
+
+        </div>
+    </section>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.querySelectorAll('.navigable').forEach(item => {
+                item.addEventListener('click', function () {
+                    if(this.parentElement.classList.contains('active') === false) {
+                        $('.ingredients-holder').removeClass('active');
+                        this.parentElement.classList.add('active');
+                      	$(this).siblings('.popup-content').css('display', 'block');
+                    } else {
+                        this.parentElement.classList.remove('active');
+                      	$(this).siblings('.popup-content').css('display', 'none');
+                    }
+                })
+            })
+        }
+    </script>
+{% endif %}
+
+{% schema %}
+{
+    "name":"Ingredients Master",
+    "class":"js-section__ingredients_master",
+    "settings":[
+        {
+            "type":"checkbox",
+            "id":"ingre_master_enable",
+            "label":"Enable",
+            "default":false
+        },
+        {
+            "type":"text",
+            "id":"home_ingre_master_title",
+            "label":"Title"
+        },
+        {
+            "type":"richtext",
+            "id":"home_ingre_master_description",
+            "label":"Description"
+        },
+        {
+            "type":"text",
+            "id":"home_ingre_master_label_button",
+            "label":"Button Label"
+        },
+        {
+            "type":"text",
+            "id":"home_ingre_master_lable_url",
+            "label":"Button URL"
+        }
+    ],
+    "blocks":[
+        {
+            "type":"article",
+            "name":"Items",
+            "settings":[
+                {
+                    "type":"text",
+                    "id":"ingre_master_item_title",
+                    "label":"Title"
+                },
+                {
+                    "type":"richtext",
+                    "id":"ingre_master_item_description",
+                    "label":"Description",
+                    "default":"<p>Please enter your ingredient description</p>"
+                },
+                {
+                    "type":"image_picker",
+                    "id":"ingre_master_item_image",
+                    "label":"Image",
+                    "info":"Size image...."
+                }
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "name":"Ingredients Master",
+            "category":"Uway Customize"
+        }
+    ]
+}
+{% endschema %}

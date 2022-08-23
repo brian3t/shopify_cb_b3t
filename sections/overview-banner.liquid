@@ -1,0 +1,41 @@
+{% if section.blocks.size > 0 %}
+<section class="section section--{{ section.id }} section--full-bg" data-section-id="{{ section.id }}" data-section-type="home-promo">
+    <div class="home-promo">
+        {% for block in section.blocks %}
+            {% render 'banner-item', block: block, page: 'page' %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if section.blocks.size == 0 %}
+    <div class="banner-default">
+        <div class="container container--tiny">
+            <div class="section__title section__title--center">
+                <h1 class="section__title-text h2">{{ page.title }}</h1>
+                <h2 class="section__sub-title-text h3"></h2>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name":"Location Banner",
+    "class":"js-section__overview-banner",
+    "blocks":[
+        {
+            "type":"image",
+            "name":"Image block",
+            "settings":[
+                {
+                    "type":"image_picker",
+                    "id":"image",
+                    "label":"Image",
+                    "info":"2000 x 700px width recommended."
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

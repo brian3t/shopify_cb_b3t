@@ -1,0 +1,107 @@
+{% if section.settings.image_animation_enable %}
+    <link rel="stylesheet" href="{{ 'keen-slider.min.css' | asset_url }}" />
+    <section class="section section--{{ section.id }} thumbnail-slider section-slider">
+        <div class="grid grid--no-gutters image-bar image-bar--large">
+            <div id="my-keen-slider" class="keen-slider">
+                {% for block in section.blocks %}
+                    
+                        <div class="keen-slider__slide number-slide{{ forloop.index }}">
+                            <div 
+                                class="image-bar__item image-bar__item--{{ block.settings.shopify_attributes }} box ratio-container lazyloaded" 
+                                data-bgset="{{ block.settings.homepage_image_animation | img_url: '720x' }}"
+                                data-parent-fit="cover"
+                                data-url="{{block.settings.homepage_url_animation}}"
+                                style="background-image: url({{ block.settings.homepage_image_animation | img_url: '720x' }}); "
+                            >
+                            </div>
+                        </div>
+                    
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+	
+    <script src="{{ 'keen-slider.min.js' | asset_url }}"></script>
+    <script type="text/javascript">
+        var sliderElement = document.getElementById("my-keen-slider");
+        var interval = 1000;
+
+        function autoplay(run) {
+            window.setTimeout(function(){
+                if (run && slider) {
+                    autoKeen();
+                }
+            }, interval)
+        }
+
+        var slider = new KeenSlider(sliderElement, {
+            slidesPerView: 2,
+            centered: true,
+            mode: "free-snap",
+            spacing: 10,
+            loop: true,
+            duration: 3000,
+            breakpoints: {
+                "(min-width: 768px)": {
+                    slidesPerView: 3
+                },
+                "(min-width: 1200px)": {
+                    slidesPerView: 6,
+                }
+            }
+        });
+
+        function autoKeen(){
+            slider.next();
+            window.setTimeout(function(){
+                autoKeen()
+            }, 3000)
+        }
+      	{% if request.page_type == 'collection' %} 
+      		autoplay(false); 
+        {% else %}
+        	autoplay(true);
+      	{% endif %}
+        
+    </script>
+{% endif %}
+
+{% schema %}
+{
+    "name":"Image Animation",
+    "class":"js-section__homepage-image-animation",
+    "settings":[
+        {
+            "type":"checkbox",
+            "id":"image_animation_enable",
+            "label":"Enable",
+            "default":false
+        }
+    ],
+    "blocks":[
+        {
+            "type":"article",
+            "name":"Items",
+            "settings":[
+                {
+                    "type":"text",
+                    "id":"homepage_url_animation",
+                    "label":"URL",
+                    "default": "#"
+                },
+                {
+                    "type":"image_picker",
+                    "id":"homepage_image_animation",
+                    "label":"Image"
+                }
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "name":"Image Animation Ticker",
+            "category":"Uway Customize"
+        }
+    ]
+}
+{% endschema %}
