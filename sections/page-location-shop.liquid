@@ -1,29 +1,31 @@
 <div id="shopify-section-anatomy" class="shopify-section">
-    <div class="grid locations">
-        <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
-          <h2 class="sticky-title">{{ section.settings.instore_title }}</h2>
-          <div class="sticky-desc">{{ section.settings.instore_description }}</div>
+    <div class="container">
+        <div class="grid locations">
+            <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
+              <h2 class="sticky-title">{{ section.settings.instore_title }}</h2>
+              <div class="sticky-desc">{{ section.settings.instore_description }}</div>
+            </div>
+            <ul class="listlocation">
+                {% for block in section.blocks %}
+                <li>
+                    <img src="{{ 'location.png' | asset_url }}" />
+                    <p class="title_store">{{ block.settings.title_store }}</p>
+                    <div class="address_store">
+                        <div class="title">Address:</div>
+                        <div class="desc">
+                            <a href="{{ block.settings.link_store }}" target="_blank">{{ block.settings.address_store }} </a>
+                        </div>
+                    </div>
+                    <div class="website_store">
+                        <div class="title">Website:</div>
+                        <div class="desc">
+                            <a href="{{ block.settings.link_website }}" target="_blank">{{ block.settings.address_website }}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        <ul class="listlocation">
-            {% for block in section.blocks %}
-            <li>
-                <img src="{{ 'location.png' | asset_url }}" />
-                <p class="title_store">{{ block.settings.title_store }}</p>
-                <div class="address_store">
-                    <div class="title">Address:</div>
-                    <div class="desc">
-                        <a href="{{ block.settings.link_store }}" target="_blank">{{ block.settings.address_store }} </a>
-                    </div>
-                </div>
-                <div class="website_store">
-                    <div class="title">Website:</div>
-                    <div class="desc">
-                        <a href="{{ block.settings.link_website }}" target="_blank">{{ block.settings.address_website }}</a>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
     </div>
 </div>
 

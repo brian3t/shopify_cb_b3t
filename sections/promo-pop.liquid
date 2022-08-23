@@ -1,28 +1,22 @@
 {% comment %}Create variable so delay can be re-set if form has message{% endcomment %}
 {%- assign popup_delay = section.settings.delay -%}
 
-<div class="promo-pop js-promo-pop{% unless section.settings.enable %} promo-pop--disabled{% endunless %}{% unless section.settings.mobile %} promo-pop--no-mobile{% endunless %}" data-promo-enabled="{{ section.settings.enable }}" data-promo-delay="{{ popup_delay }}000" data-promo-expiry="{{ section.settings.expiry }}">    
+<div class="promo-pop js-promo-pop{% unless section.settings.enable %} promo-pop--disabled{% endunless %}{% unless section.settings.mobile %} promo-pop--no-mobile{% endunless %}" data-promo-enabled="{{ section.settings.enable }}" data-promo-delay="{{ popup_delay }}000" data-promo-expiry="{{ section.settings.expiry }}">
     <a href="#" class="promo-pop__close js-promo-pop-close icon-fallback">
         <i class="icon icon--close" aria-hidden="true"></i>
         <span class="icon-fallback__text">{{ 'layout.drawers.close' | t }}</span>
     </a>
 
-    <div class="promo-pop__wrapper">    
+    <div class="promo-pop__wrapper">
         <div class="promo-pop__content">
 
-            {% unless section.settings.title == blank %}
-                <div class="section__title promo-pop__title">
-                    <h4 class="section__title-text">{{ section.settings.title | escape }}</h4>
-                </div>
-            {% endunless %}
-
-            {% unless section.settings.text == blank %}
-                <div class="promo-pop__desc rte">{{ section.settings.text }}</div>              
+            {% unless section.settings.imgsrc == blank %}
+                <div class="promo-pop__desc rte"><img src="{{ settings.popup_img | img_url : '1024x' }}" alt="imgpopup" class="margin-0"/></div>
             {% endunless %}
 
             {% if section.settings.enable_newsletter %}
                 <div class="promo-pop__form">
-                    {% form 'customer' %} 
+                    {% form 'customer' %}
                         {{ form.errors | default_errors }}
                         {% if form.posted_successfully? %}
                             {% comment %}Set delay to 0 so form message is visible instanlty{% endcomment %}
@@ -41,12 +35,12 @@
                                         placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
                                         autocorrect="off"
                                         autocapitalize="off">
-                            
+
                                 <button type="submit" class="c-btn c-btn--primary c-btn--arrow promo-pop__fieldset-item promo-pop__btn" name="commit" id="Subscribe">{{ 'general.newsletter_form.submit' | t }}</button>
                             </div>
                         {% endif %}
                     {% endform %}
-                </div> 
+                </div>
             {% endif %}
 
             {% unless section.settings.link == blank %}
@@ -79,6 +73,12 @@
             "id": "title",
             "label": "Heading",
             "default": "Popup"
+        },
+        {
+            "type": "text",
+            "id": "imgsrc",
+            "label": "Image Url",
+            "default": "https://cdn.shopify.com/s/files/1/0571/1177/3367/t/2/assets/banner-footer.png?5"
         },
         {
             "type": "richtext",
@@ -134,7 +134,7 @@
             "type": "checkbox",
             "id": "enable_newsletter",
             "label": "Enable newsletter",
-            "default": true
+            "default": false
         }
     ]
 }

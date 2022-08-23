@@ -934,7 +934,7 @@ h1, .h1 {
   font-size: calc((var(--font--size-h1) / var(--font--size-base)) * 1rem);
   line-height: 1.45; }
 
-h2, .h2 {
+h2, .h2, .main .instastory-title {
   font-size: calc((var(--font--size-h2) / var(--font--size-base)) * 1rem);
   line-height: 1.6; }
 
@@ -1600,8 +1600,8 @@ body:not(.template-index) .giftcard-wrapper,
   padding: 9px 0; }
   @media screen and (max-width: 480px) {
     .header__logo-img {
-      max-width: 170px; 
-    } 
+      max-width: 170px;
+    }
   }
 
 .header-navs {
@@ -1813,7 +1813,7 @@ body:not(.template-index) .giftcard-wrapper,
     text-decoration: none; }
 
 .primary-nav__link {
-  height: 32px; 
+  height: 32px;
   font-size: 13px;
   /*font-weight: bold;*/
   letter-spacing: .14em;
@@ -2277,7 +2277,8 @@ body:not(.template-index) .giftcard-wrapper,
 
 @font-face {
   font-family: 'sb-icons';
-  src: url(var(--font--icon-url)); }
+  src: url(var(--font--icon-url));
+}
 
 @font-face {
   font-family: 'sb-icons';
@@ -2503,7 +2504,7 @@ body:not(.template-index) .giftcard-wrapper,
 
 .product__title {
   text-transform: var(--font--title-transform);
-  margin: 0; 
+  margin: 0;
   color: #4ec9ea;
 }
 
@@ -2520,7 +2521,7 @@ body:not(.template-index) .giftcard-wrapper,
   font-family: var(--font--title);
   color: var(--color--text);
   margin: 6px 0 0;
-  line-height: 1; 
+  line-height: 1;
   color: #4ec9ea;
 }
 
@@ -3446,11 +3447,11 @@ body:not(.template-index) .giftcard-wrapper,
   line-height: 44px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
 }
-  .home-carousel__nav:hover {
-    /* background: var(--color--brand-dark);  */
-  }
+  /* .home-carousel__nav:hover {
+    background: var(--color--brand-dark);
+  } */
 
 .home-carousel__nav--prev {
   bottom: 12px;
@@ -3544,7 +3545,7 @@ body:not(.template-index) .giftcard-wrapper,
   position: relative;
   right: 0;
   bottom: 0;
-  margin-top: 12px; 
+  margin-top: 12px;
 
 }
 .home-carousel__btn:hover {
@@ -3558,7 +3559,7 @@ body:not(.template-index) .giftcard-wrapper,
 }
 
 .home-carousel--full .home-carousel__nav--next {
-  right: 12px; 
+  right: 12px;
   top: 50%;
 }
 
@@ -3969,39 +3970,52 @@ body:not(.template-index) .giftcard-wrapper,
 /* ==========================================================================
    #PROMOTION POPUP SECTION (CRITICAL)
    ========================================================================== */
+div.page-container.has_promo_popup{
+  opacity: 1;
+}  
 .promo-pop {
   position: fixed;
-  right: 42px;
-  bottom: 30px;
-  max-width: 540px;
-  width: 100%;
   background: #fff;
-  padding: 30px;
-  border: 1px solid #e4e4e4;
   opacity: 0;
   visibility: hidden;
-  -ms-transform: translateX(600px);
-  -webkit-transform: translateX(600px);
-  transform: translateX(600px);
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  top: auto !important; }
-  .promo-pop.js-active {
+    z-index: 999;/*higher than popup_bg*/
+
+}
+.promo-pop img{
+  width: 100%;
+}
+/* 0528 */
+#popup_bg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  z-index: -1;
+}
+#popup_bg.active{
+  z-index: 99;
+  background: rgb(0, 0, 0);
+  opacity: 0.3;
+}
+
+
+
+/* 0528 end */  
+
+.promo-pop.js-active {
     opacity: 1;
     visibility: visible;
-    -ms-transform: translateX(0);
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    -ms-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    transform: translateY(0); }
-
+  }
 .promo-pop--disabled {
   display: none; }
   .promo-pop--disabled.js-active {
     display: block; }
-
+.margin-0{margin:0 !important;}
 /* ==========================================================================
    #PLUGIN - MAGNIFIC POPUP
    ========================================================================== */
@@ -4885,8 +4899,6 @@ html.sr body[data-anim-load="true"] .section__title .section__title-text.js-sr-l
 .shopify-section-header {
   z-index: 11; }
 
-.promo-pop {
-  z-index: 12; }
 
 .password-header__link {
   z-index: 13; }
@@ -5137,12 +5149,16 @@ body:before {
   }
 }
 
-.home-carousel--minimal 
+.home-carousel--minimal
 .home-carousel__btn {
   top: 80px !important;
-  right: -150px !important;
+/*   right: -150px !important; */
+  right: -252px !important;
 }
 
 .galaxy-item:first-child .galaxy-item-desc {
   margin-top: 4.5%;
+}
+div.article__content a{
+  color: #4ec9ea;
 }

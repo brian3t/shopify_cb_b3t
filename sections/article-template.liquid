@@ -1,14 +1,11 @@
 {% assign number_of_comments = article.comments_count %}
 
 <section class="section section--article article{% unless article.image and section.settings.show_img %} article--no-img{% endunless %}">
+
     {% if section.settings.show_img %}
         {% if article.image %}
-            <div class="container container--mob-0">
-                <div class="article__featured-media" style="background-image: url('{{ article.image.src | img_url: '1x1' }}')">
-                    <div id="top_btn">
-                        <button class="btn">DONATE</button>
-                        <button class="btn">BE AN ADVOCATE</button>
-                    </div>
+            <div class="container--mob-0">
+                <div class="article__featured-media" style="background-image: url('{{ article.image.src | img_url: '1x1' }}');">
                     <div class="article__featured-media__img img-lazyload u-bg-cover lazyload js"
                         data-bgset="{% render 'bgset', image: article.image.src %}"
                         data-sizes="auto"
@@ -23,25 +20,23 @@
         {% endif %}
     {% endif %}
 
-    <div class="container container--large ">
+    <div class="container container--tiny">
         <div class="article__title">
             <div class="section__title section__title--center">
-                <h1 class="section__title-text h2">{{ article.title }}</h1>
+                <h1 class="section__title-text h1-custom">{{ article.title }}</h1>
             </div>
+            {% if section.settings.show_date %}
+                <div class="article__date label label--brand">
+                    <p class="article__date-text label__text">{{ article.published_at | date: format: 'date' }}</p>
+                </div>
+            {% endif %}
         </div>
 
         <div class="article__content rte" itemprop="articleBody">
-            <div id="top_donate_btn">
-                <div class="u-8/10">
-                    <div id="raised_div"><span id="raised">$27,700</span></div>
-                    <div id="goal_div">of <span id="goal"></span> goal raised</div>
-                </div>
-                <div class="u-2/10"><button class="btn">DONATE</button></div>
-            </div>
             {{ article.content }}
         </div>
 
-        <div class="article__meta">
+        <div class="article__meta ">
             <div class="article__meta-wrapper">
                 {% if section.settings.show_author %}
                     <div class="article__meta-author">
@@ -121,7 +116,7 @@
                     {% endif %}
                 </div>
                 <div class="article-paginate__item article-paginate__item--next{% unless blog.next_article %} article-paginate__item--disabled{% endunless %}">
-                    {% if blog.next_article %}
+                    {% if blog.next_article %} 
                         <a href="{{ blog.next_article }}" class="article-paginate__link icon-fallback">
                             <i class="icon icon--right-t" aria-hidden="true"></i>
                             <span class="icon-fallback__text">{{ 'blogs.article.newer_post' | t }}</span>
@@ -183,12 +178,12 @@
                         {% endif %}
                     {% endpaginate %}
                 </div>
-
+                
                 <div class="article-comments__form article-form{% if number_of_comments < 1 %} article-form--first{% endif %}">
                     {% form 'new_comment', article %}
 
                         <h2 class="article-form__title h4">{{ 'blogs.comments.title' | t }}</h2>
-
+                        
                         {{ form.errors | default_errors }}
 
                         <div class="o-layout">
@@ -278,7 +273,7 @@
                         {% endfor %}
                     </div>
                 </div>
-
+                
             </div>
         </div>
 

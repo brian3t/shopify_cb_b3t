@@ -107,7 +107,8 @@
         </div>
     {% endif %}
     <div class="header-trigger header-trigger--far-right cart-draw-trigger-icon u-flex u-flex--middle js-cart-draw-icon" style="display: none">
-        <a href="{{ routes.cart_url }}" class="header-trigger__link header-trigger__link--cart icon-fallback{% if cart.item_count > 0 %} js-cart-full{% endif %}{% if settings.cart_type == 'modal' %} js-cart-trigger js-no-transition{% endif %}">
+        <!-- <a href="#" class="icon-cart header-trigger__link header-trigger__link--cart icon-fallback{% if cart.item_count > 0 %} js-cart-full{% endif %}"> -->
+            <a href="{{ routes.cart_url }}" class="header-trigger__link header-trigger__link--cart icon-fallback{% if cart.item_count > 0 %} js-cart-full{% endif %}{% if settings.cart_type == 'modal' %} js-cart-trigger js-no-transition{% endif %}">
             <!-- <i class="icon icon--cart" aria-hidden="true"></i> -->
             <img src="{{ 'cart-icon-21.png' | asset_img_url: '' }}" style="max-height:40px; max-width: 30px;"/>
             <span class="icon-fallback__text">{{ 'layout.navigation.cart' | t }}</span>
@@ -115,11 +116,7 @@
     </div>
 
     <div class="header__logo u-flex u-flex--middle u-flex--center{% unless section.settings.logo %} header__logo--text{% endunless %}">
-        {% if template == 'index' %}
-            <h1 class="header__logo-wrapper js-main-logo" itemscope itemtype="http://schema.org/Organization">
-        {% else %}
             <div class="header__logo-wrapper js-main-logo" itemscope itemtype="http://schema.org/Organization">
-        {% endif %}
             {% if section.settings.logo %}
                 <a href="{{ routes.root_url }}" itemprop="url" class="header__logo-link animsition-link">
                     {% capture image_size %}{{ logo_img_size }}x{% endcapture %}
@@ -128,11 +125,7 @@
             {% else %}
                 <a href="{{ routes.root_url }}" class="header__logo-link header__logo-link--text" itemprop="url">{{ shop.name }}</a>
             {% endif %}
-        {% if template == 'index' %}
-            </h1>
-        {% else %}
             </div>
-        {% endif %}
     </div>
 
     <div class="header-navs js-heaver-navs u-clearfix u-hidden@tab-down">
@@ -419,8 +412,10 @@
                     {% endif %}
                 {% endif %}
 
-                <li class="secondary-nav__item"> 
+                <!-- <li class="secondary-nav__item icon-cart">  -->
+                <li class="secondary-nav__item">
                     <a href="{{ routes.cart_url }}" class="secondary-nav__link{% if settings.cart_type == 'modal' %} js-cart-trigger js-no-transition{% endif %}">
+                    <!-- <a href="#" class="secondary-nav__link"></a> -->
                       <img src="{{ 'cart-icon-21.png' | asset_img_url: '' }}" style="max-height:40px; max-width: 28px;"/> (<span id="CartCount">{{ cart.item_count }}</span>)
                     </a>
                 </li>
@@ -435,6 +430,11 @@
                 {% endif %}
 
             </ul>
+
+            <!-- Begin Cart -->
+            
+            
+            <!-- End Cart -->
         </nav>
 
     </div>
@@ -451,6 +451,8 @@ if (document.getElementsByClassName('js-header')[0].classList.contains('header--
 document.documentElement.style.setProperty('--header-height', document.getElementsByClassName('js-header')[0].offsetHeight + 'px');
 setTimeout(function() {document.documentElement.style.setProperty('--header-height', document.getElementsByClassName('js-header')[0].offsetHeight + 'px')}, 1500);
 </script>
+
+
 {% schema %}
 {
     "name": "Header",

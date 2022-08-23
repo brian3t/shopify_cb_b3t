@@ -9,9 +9,9 @@
 }
 </style>
 {% if section.blocks.size > 0 %}
-    <section class="section section--mb-s section--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="home-image-grid">
+    <section class="section section--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="home-image-grid">
         <div class="home-image-grid home-image-grid--{{ section.settings.height }}{% if section.settings.featured %} home-image-grid--featured{% endif %}">
-            <div class="container">
+            <div class="container container--medium">
                 <div class="home-image-grid__items">
                     <div class="o-layout">
                         {% for block in section.blocks %}

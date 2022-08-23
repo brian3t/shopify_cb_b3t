@@ -1,7 +1,9 @@
-<div id="shopify-section-anatomy" class="shopify-section">
-    <div class="grid locations">
+<div class="shopify-section js-section__page-location-state">
+    <div class="container">
+      <div class="grid locations">
         <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
           <h2 class="sticky-title">{{ section.settings.state_title_section }}</h2>
+          <div class="sticky-desc">{{ section.settings.state_description }}</div>
           <!-- <button class="zipcode">Enter zip code</button> -->
         </div>
         <ul class="listlocation">
@@ -12,6 +14,7 @@
             </li>
             {% endfor %}
         </ul>
+      </div>
     </div>
 </div>
 {% schema %}
@@ -23,6 +26,12 @@
         "id":"state_title_section",
         "label":"Title section",
         "default": "States shipping"
+      },
+	  {
+        "type":"richtext",
+        "id":"state_description",
+        "label":"Description section",
+        "default": "<p>Promote your brand by using a powerful combination of buttons, custom text, page content and images.</p>"
       }
     ],
     "blocks": [

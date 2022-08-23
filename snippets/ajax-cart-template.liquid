@@ -199,7 +199,7 @@
             <span aria-hidden="true">&minus;</span>
             <span class="u-hidden-visually">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
         </button>
-        <input type="text" class="js-qty__num" value="{{itemQty}}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+        <input type="text" class="js-qty__num 1" value="{{ itemQty }}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
         <button type="button" class="js-qty__adjust js-qty__adjust--plus" data-id="{{key}}" data-qty="{{itemAdd}}">
             <span aria-hidden="true">+</span>
             <span class="u-hidden-visually">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>

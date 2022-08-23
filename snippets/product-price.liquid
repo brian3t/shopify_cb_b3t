@@ -18,9 +18,9 @@
 {% if available %}
     {% if compare_at_price > price %}
         <span class="product__price-price product__price-price--sale">{% if price_varies %}{{ 'products.general.from_price' | t }} {% endif %}<span class="money">{{ money_price }}</span></span>
-        <strike class="product__price-cross"><span class="money">{{ compare_at_price | money }}</span> / 8 single serves</strike>
+        <strike class="product__price-cross"><span class="money">{{ compare_at_price | money }}</span> / 4 single serves</strike>
     {% else %}
-        <span class="product__price-price" style="color: #000">{% if price_varies %}{{ 'products.general.from_price' | t }} {% endif %}<span class="money">{{ money_price }}</span> / 8 single serves</span>
+        <span class="product__price-price" style="color: #000">{% if price_varies %}{{ 'products.general.from_price' | t }} {% endif %}<span class="money">{{ money_price }}</span> / 4 single serves</span>
     {% endif %}
 {% endif %}
 {% unless available %}

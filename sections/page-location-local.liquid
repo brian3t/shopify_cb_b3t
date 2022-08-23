@@ -1,21 +1,26 @@
-<div id="shopify-section-anatomy" class="shopify-section">
-    <div class="grid locations">
-        <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
-          <h2 class="sticky-title">{{ section.settings.local_title_section }}</h2>
-          <button class="zipcode">Enter zip code</button>
+<div class="shopify-section shopify-section-anatomy">
+    <div class="container">
+        <div class="grid locations">
+          	{% comment %}
+            <div class="sweeteners__eyebrow eyebrow c-blue-1 center all-caps">
+              <h2 class="sticky-title">{{ section.settings.local_title_section }}</h2>
+              <button class="zipcode">Enter zip code</button>
+              <div class="sticky-desc">{{ section.settings.local_description }}</div>
+            </div>
+          	{% endcomment %} 
+            <ul class="listlocation">
+                {% for block in section.blocks %}
+                <li>
+                    <img src="{{ 'location.png' | asset_url }}" />
+                    <br/>
+                    <div class="title_store">
+                        {{ block.settings.title }} <br/>
+                        {{ block.settings.title_state }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        <ul class="listlocation">
-            {% for block in section.blocks %}
-            <li>
-                <img src="{{ 'location.png' | asset_url }}" />
-                <br/>
-                <div class="title_store">
-                    {{ block.settings.title }} <br/>
-                    {{ block.settings.title_state }}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
     </div>
 </div>
 {% schema %}
@@ -28,6 +33,12 @@
             "id":"local_title_section",
             "label":"Title section",
             "default": "Local delivery"
+        },
+		{
+            "type":"richtext",
+            "id":"local_description",
+            "label":"Description section",
+            "default": "<p>Promote your brand by using a powerful combination of buttons, custom text, page content and images.</p>"
         }
     ],
     "blocks": [

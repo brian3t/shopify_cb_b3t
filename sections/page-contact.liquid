@@ -139,8 +139,6 @@
                         </div>
                     </div>
 
-                    <label for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
-                    <input type="tel" id="ContactFormPhone" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
 
                     <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
                     <textarea rows="10" id="ContactFormMessage" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>

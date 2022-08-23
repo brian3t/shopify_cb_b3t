@@ -13,7 +13,7 @@
   display: inline-block;
   margin: 18px 0;
   color: #e4e4e4;
-  /*
+  /* 
     padding: 0;
     opacity: 0;
     height: 0;
@@ -736,7 +736,7 @@ tr:nth-child(odd) td {
 .article__featured-media {
   overflow: hidden;
   position: relative;
-  height: 490px;
+  height: 600px;
   background-color: #f0f0f0; }
 
 .article__title {
@@ -1541,13 +1541,13 @@ body:not(.template-index) .giftcard-wrapper,
     line-height: 46px; }
   .ajaxcart-draw--notification .ajaxcart__inner {
     padding: 18px;
-    margin: 0;
+    margin: 0; 
     font-size: 1rem !important;
   }
   .ajaxcart-draw--notification .ajaxcart-draw__wrapper {
     padding-bottom: 0; }
   .ajaxcart-draw--notification .ajaxcart__continue {
-    margin-bottom: 0;
+    margin-bottom: 0; 
     font-size: 0.8rem !important;
     padding: 6px !important;
   }
@@ -2044,7 +2044,7 @@ body:not(.template-index) .giftcard-wrapper,
    #FAQs PAGE
    ========================================================================== */
 .page--faq.page--faq {
-  position: static;
+  position: static; 
   margin-bottom: 80px;
 }
 
@@ -3281,7 +3281,7 @@ body:not(.template-index) .giftcard-wrapper,
   margin-bottom: 0; }
 
 .product-single__add-btn {
-  margin-bottom: 12x;
+  margin-bottom: 12x; 
   border-radius: 4px;
 }
 
@@ -3786,7 +3786,7 @@ body:not(.template-index) .giftcard-wrapper,
 
 .section__title-text {
   position: relative;
-  margin: 0;
+  margin: 0; 
   font-weight: 600;
   /* color: #4ec9ea; */
   font-size: 30px;
@@ -4256,10 +4256,12 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
 .home-image-grid__desc {
   color: #fff;
   position: relative;
-  margin: 0; }
+  margin: 0; 
+}
 
 .home-image-grid__title {
-  margin-bottom: 6px; }
+  margin-bottom: 6px; 
+}
 
 .home-image-grid__title--underline {
   margin-bottom: 21px; }
@@ -4813,7 +4815,10 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
   text-transform: var(--font--title-transform); }
 
 .newsletter__form-message__text {
-  margin: 0; }
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+}
 
 .newsletter--dark .section__title-text:after {
   background: #222; }
@@ -4866,7 +4871,7 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
 
 @media screen and (max-width: 767px) {
   .newsletter {
-    padding: 30px 24px; }
+    padding: 30px 24px; } 
 }
 
 #challenge .newsletter {
@@ -4879,8 +4884,8 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
   position: absolute;
   right: 0;
   top: 0;
-  text-align: center;
-  color: #555;
+  text-align: centerunet
+  color: #333;
   display: block;
   font-size: 24px;
   width: 42px;
@@ -4912,19 +4917,24 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
   margin-top: 18px;
   display: inline-block; }
 
-@media screen and (max-width: 767px) {
+@media (max-width: 1440px) {
+  .promo-pop{
+    left: 40%;
+    width: 20%;
+  }
+}
+
+@media (min-width: 2800px) {
+  .promo-pop{
+    left: 38%;
+    width: 24%;
+  }
+}
+
+
+@media screen and (max-width: 760px) {
   .promo-pop--no-mobile {
     display: none !important; }
-  .promo-pop {
-    right: 0;
-    bottom: 0;
-    padding: 18px;
-    -ms-transform: translateX(0);
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    -ms-transform: translateY(100%);
-    -webkit-transform: translateY(100%);
-    transform: translateY(100%); }
   .promo-pop__btn {
     position: relative;
     margin-top: -1px;
@@ -5025,7 +5035,7 @@ body[data-heading-border="false"] .promo-pop__title.promo-pop__title {
   padding-bottom: 72px; }
 
 .home-promo__text {
-  margin: 0;
+  margin: 0; 
   font-size: 16px;
 }
 
@@ -5125,14 +5135,14 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
   font-style: var(--font--body-style);
   text-transform: none;
   letter-spacing: 0;
-  margin-bottom: 0;
+  margin-bottom: 0; 
   font-size: 26px;
   text-align: left;
   line-height: 2.8rem;
 }
 
 .home-testimonials__name__text {
-  margin: 0;
+  margin: 0; 
   text-align: left;
   text-transform: uppercase;
   font-size: 14px;
@@ -5290,7 +5300,6 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
   .section-home-testimonials.section-home-testimonials .home-testimonials--carousel .home-testimonials__text__text,
   .section-home-testimonials.section-home-testimonials .home-testimonials--featured-grid .home-testimonials__text__text,
   .section-home-testimonials.section-home-testimonials .home-testimonials--grid .home-testimonials__text__text {
-    font-size: 1.2rem;
     line-height: 1.8; }
   .section-home-testimonials.section-home-testimonials .home-testimonials--carousel .home-testimonials__media__item--stars-dark,
   .section-home-testimonials.section-home-testimonials .home-testimonials--carousel .home-testimonials__media__item--stars-brand,
@@ -5356,6 +5365,15 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
   -moz-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out; }
 
+.home-video__item-img,
+.home-video__placeholder-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; }
+
 .home-video__placeholder {
   position: relative;
   width: 100%;
@@ -5400,7 +5418,7 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
 
 */
 /*
-
+	
 	1. Buttons
 
  */
@@ -5557,8 +5575,8 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
   margin: 0; }
 
 .pswp--css_animation .pswp__preloader__cut {
-  /*
-			The idea of animating inner circle is based on Polymer ("material") loading indicator
+  /* 
+			The idea of animating inner circle is based on Polymer ("material") loading indicator 
 			 by Keanu Lee https://blog.keanulee.com/2014/10/20/the-tale-of-three-spinners.html
 		*/
   position: relative;
@@ -5628,7 +5646,7 @@ img.home-testimonials__media__item--img.home-testimonials__media__item--img {
     transform: rotate(0); } }
 
 /*
-
+	
 	6. Additional styles
 
  */
@@ -6038,7 +6056,7 @@ body[data-anim-zoom="true"] .js-sr-loaded .home-delivery__bg,
 body[data-anim-zoom="true"] .password-content__bg {
   -webkit-animation: zoomin 20s ease forwards;
   -moz-animation: zoomin 20s ease forwards;
-  animation: zoomin 20s ease forwards;
+  animation: zoomin 20s ease forwards; 
 }
 
 body[data-anim-zoom="true"] .blog__img,
@@ -6324,20 +6342,3 @@ body[data-anim-load="false"][data-anim-zoom="true"] .password-content__bg {
   content: "" !important;
   display: block !important;
   clear: both !important; }
-
-/*
-Article
- */
-#top_btn{
-  display: flex;
-  flex-direction: row-reverse;
-  padding-top: 10px;
-}
-#top_btn > button {
-  margin-right: 10px;
-  z-index: 2000;
-  /*background-color: #e5c319;*/
-}
-#top_donate_btn{
-  display: flex;
-}

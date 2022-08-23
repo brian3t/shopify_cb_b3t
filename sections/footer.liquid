@@ -1,6 +1,6 @@
 <style type="text/css">
    .footer {
-        background-color: {{FF0000}};
+        background-color: {{ section.settings.footer_bg }};
         {% if section.settings.footer_bg == '#ffffff' %}
             border-top: 1px solid #e4e4e4;
         {% endif %}
@@ -23,23 +23,29 @@
                     <div class="newsletter__form-wrapper">
                         {% form 'customer', id: 'newsletter' %}
                             {{ form.errors | default_errors }}
-                            <div class="o-layout o-layout--flush">
-                                <div class="o-layout__item u-1/1 u-2/3@tab">
-                                    <input type="hidden" name="contact[tags]" value="newsletter">
-                                    <label for="Email" class="u-hidden-visually">Email</label>
-                                    <input type="email"
-                                            name="contact[email]"
-                                            id="Email"
-                                            class="newsletter__input"
-                                            value="{% if customer %}{{ customer.email }}{% endif %}"
-                                            placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
-                                            autocorrect="off"
-                                            autocapitalize="off">
+                            {% if form.posted_successfully? %}
+                                <div class="newsletter__form-message">
+                                    <h4 class="newsletter__form-message__text">{{ 'general.newsletter_form.confirmation' | t }}</h4>
                                 </div>
-                                <div class="o-layout__item u-1/1 u-1/3@tab">
-                                    <button type="submit" class="c-btn c-btn--full c-btn--primary c-btn--arrow newsletter__btn" name="commit" id="Subscribe">{{ 'general.newsletter_form.submit' | t }}</button>
+                            {% else %}
+                                <div class="o-layout o-layout--flush">
+                                    <div class="o-layout__item u-1/1 u-2/3@tab">
+                                        <input type="hidden" name="contact[tags]" value="newsletter">
+                                        <label for="Email" class="u-hidden-visually">Email</label>
+                                        <input type="email"
+                                                name="contact[email]"
+                                                id="Email"
+                                                class="newsletter__input"
+                                                value="{% if customer %}{{ customer.email }}{% endif %}"
+                                                placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                                                autocorrect="off"
+                                                autocapitalize="off">
+                                    </div>
+                                    <div class="o-layout__item u-1/1 u-1/3@tab">
+                                        <button type="submit" class="c-btn c-btn--full c-btn--primary c-btn--arrow newsletter__btn" name="commit" id="Subscribe">{{ 'general.newsletter_form.submit' | t }}</button>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endform %}
                     </div>  
                 </div>
@@ -451,9 +457,9 @@
     </div>
     
 </footer>
-
+{% comment %}
 <a id="back2Top" title="Back to top" href="#">&#10148;</a>
-
+{% endcomment %}
 
 {% schema %}
 {

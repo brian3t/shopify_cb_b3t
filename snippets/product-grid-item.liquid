@@ -100,10 +100,19 @@
                     <a href="{{ product.url | within: collection }}" class="c-btn c-btn--full c-btn--primary c-btn--arrow c-btn--small-tab product-btn__btn">{{ 'products.product.select_options' | t }}</a>
                 {% else %}
                     {% form 'product', product, class: "js-product-form" %}
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-                        <button type="submit" name="add" class="c-btn c-btn--full c-btn--primary c-btn--small-tab product-btn__btn js-product-add">
-                            <span class="js-product-add-text">{{ 'products.product.add_to_cart' | t }}</span>
-                        </button>
+                        <div class="customize-quatity-form">
+                            <div class="product-single__qty">
+                                <div class="product-single__qty-input">
+                                    <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                                </div>
+                            </div>
+                            <div class="product-single__add js-product-buttons{% unless product.available %} product-single__add--sold{% endunless %}">
+                                <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                                <button type="submit" name="add" class="c-btn c-btn--full c-btn--primary c-btn--small-tab product-btn__btn js-product-add">
+                                    <span class="js-product-add-text">{{ 'products.product.add_to_cart' | t }}</span>
+                                </button>
+                            </div>
+                        </div>
                     {% endform %}
                 {% endif %}
             </div>
@@ -113,7 +122,7 @@
     <a href="{{ product.url | within: collection }}" class="product-link js-product-link{% if page == 'home' %} home-products__link{% endif %}" title="{{ product.title }}">
         <div class="product__details">
             <h3 class="product__title h4">{{ product.title }}</h3>
-
+			{% render 'judgeme_widgets', product: product, widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}
             {% if settings.product_grid_vendor %}
                 <h4 class="product__vendor h6">{{ product.vendor }}</h4>
             {% endif %}
@@ -143,5 +152,4 @@
 
         </div>
     </a>
-
 </div>

@@ -5,7 +5,7 @@
     <div class="container">
         {% if section.settings.title != blank %}
             <div class="section__title section__title--center">
-                <h2 class="section__title-text">{{ section.settings.title | escape }}</h2>
+                <h2 class="section__title-text h1-custom">{{ section.settings.title | escape }}</h2>
             </div>
         {% endif %}
 
@@ -19,6 +19,7 @@
     {%- assign show_date = section.settings.blog_show_date -%}
     {%- assign crop = section.settings.crop -%}
 
+
     {% case section.settings.grid %}
     {% when 1 %}
         {%- assign grid_item_width = 'u-1/1@tab' -%}
@@ -31,7 +32,7 @@
     <div class="container{% if section.settings.grid == 1 %} container--tiny{% endif %}">
         <div class="home-blog">
             <div class="home-blog__items">
-                <div class="o-layout o-layout--masonry">
+                <div class="o-layout o-layout--masonry layout-slider js-layout-slider">
                     {% unless blog.empty? or blog.articles_count == 0 %}
                         {% for article in blog.articles limit: section.settings.post_limit %}
                             <div class="o-layout__item u-1/1 {{ grid_item_width }}">
@@ -78,7 +79,7 @@
 
         {% unless section.settings.link == blank %}
             <div class="section__link section__link--center">
-                <a href="{{ section.settings.link }}" class="link link--arrow section__link-link">{{ section.settings.link_title | escape }}</a>
+                <a href="{{ section.settings.link }}" class="home-blog-link home-promo__btn c-btn c-btn--primary c-btn--arrow link link--arrow section__link-link">{{ section.settings.link_title | escape }}</a>
             </div>
         {% endunless %}
     </div>

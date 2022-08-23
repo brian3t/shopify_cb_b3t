@@ -77,32 +77,39 @@
                                                 <div class="home-testimonials__media">
 
                                                     {% if block.settings.image != blank %}
-                                                        {% if block.settings.image_round %}
-                                                            <img class="home-testimonials__media__item home-testimonials__media__item--img lazyload js" alt="{{ block.settings.image.alt }}"
-                                                                style="border-radius: 50%;"
-                                                                data-sizes="auto"
-                                                                data-src="{{ block.settings.image | img_url: '180x180', crop: 'center' }}"
-                                                                data-srcset="{{ block.settings.image | img_url: '50x50', crop: 'center' }} 50w,
-                                                                {{ block.settings.image | img_url: '90x90', crop: 'center' }} 90w,
-                                                                {{ block.settings.image | img_url: '180x180', crop: 'center' }} 180w,
-                                                                {{ block.settings.image | img_url: '240x240', crop: 'center' }} 320w">
-                                                            <noscript>
-                                                                <img class="home-testimonials__media__item home-testimonials__media__item--img"
-                                                                    style="border-radius: 50%;" alt="{{ block.settings.image.alt }}" src="{{ block.settings.image | img_url: '180x180', crop: 'center' }}">
-                                                            </noscript>
-                                                        {% else %}
-                                                            {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                                                            <img class="home-testimonials__media__item home-testimonials__media__item--img img-lazyload lazyload js"
-                                                                data-src="{{ img_url }}"
-                                                                data-widths="[50, 90, 180, 240]"
-                                                                data-sizes="auto"
-                                                                alt="{{ block.settings.image.alt }}">
-                                                            <noscript>
-                                                                <img class="home-testimonials__media__item home-testimonials__media__item--img"
-                                                                    src="{{ block.settings.image | img_url: '180x' }}" 
+                                                        {%- if block.settings.uway_facebook_url != blank -%}
+                                                            <a href="{{ block.settings.uway_facebook_url }}" target="_blank">
+                                                        {%- endif -%}
+                                                        
+                                                            {% if block.settings.image_round %}
+                                                                <img class="home-testimonials__media__item home-testimonials__media__item--img lazyload js" alt="{{ block.settings.image.alt }}"
+                                                                    style="border-radius: 50%;"
+                                                                    data-sizes="auto"
+                                                                    data-src="{{ block.settings.image | img_url: '180x180', crop: 'center' }}"
+                                                                    data-srcset="{{ block.settings.image | img_url: '50x50', crop: 'center' }} 50w,
+                                                                    {{ block.settings.image | img_url: '90x90', crop: 'center' }} 90w,
+                                                                    {{ block.settings.image | img_url: '180x180', crop: 'center' }} 180w,
+                                                                    {{ block.settings.image | img_url: '240x240', crop: 'center' }} 320w">
+                                                                <noscript>
+                                                                    <img class="home-testimonials__media__item home-testimonials__media__item--img"
+                                                                        style="border-radius: 50%;" alt="{{ block.settings.image.alt }}" src="{{ block.settings.image | img_url: '180x180', crop: 'center' }}">
+                                                                </noscript>
+                                                            {% else %}
+                                                                {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                                                <img class="home-testimonials__media__item home-testimonials__media__item--img img-lazyload lazyload js"
+                                                                    data-src="{{ img_url }}"
+                                                                    data-widths="[50, 90, 180, 240]"
+                                                                    data-sizes="auto"
                                                                     alt="{{ block.settings.image.alt }}">
-                                                            </noscript>
-                                                        {% endif %}
+                                                                <noscript>
+                                                                    <img class="home-testimonials__media__item home-testimonials__media__item--img"
+                                                                        src="{{ block.settings.image | img_url: '180x' }}" 
+                                                                        alt="{{ block.settings.image.alt }}">
+                                                                </noscript>
+                                                            {% endif %}
+                                                        {%- if block.settings.uway_facebook_url != blank -%}
+                                                            </a>
+                                                        {%- endif -%}
 
                                                     {% elsif block.settings.media == 'stars-brand' or block.settings.media == 'stars-dark' %}
                                                         <div class="home-testimonials__media__item home-testimonials__media__item--{{ block.settings.media }}">
@@ -120,10 +127,20 @@
 
                                                 </div>
                                             {% endunless %}
-
+                                            {%- unless block.settings.uway_starts == blank -%}
+                                                
+                                                <div data="{{ block.settings.uway_starts }}" class="customize-review-section home-testimonials__media__item home-testimonials__media__item--{{ block.settings.media }}">
+                                                    <i class="icon icon--star-full" aria-hidden="true" data-value="1"></i>
+                                                    <i class="icon icon--star-full" aria-hidden="true" data-value="2"></i>
+                                                    <i class="icon icon--star-full" aria-hidden="true" data-value="3"></i>
+                                                    <i class="icon icon--star-full" aria-hidden="true" data-value="4"></i>
+                                                    <i class="icon icon--star-full" aria-hidden="true" data-value="5"></i>
+                                                </div>
+                                            {%- endunless -%}
+                                            
                                             {% unless block.settings.text == blank %}
                                                 <div class="home-testimonials__text">
-                                                    <h2 class="home-testimonials__text__text">{{ block.settings.text | escape }}</h2>
+                                                    <div class="home-testimonials__text__text">{{ block.settings.text | escape }}</div>
                                                 </div>
                                             {% endunless %}
 
@@ -134,10 +151,12 @@
                                             {% endunless %}
 
                                             {% unless block.settings.source == blank %}
-                                                <div class="home-testimonials__source">
+                                                <div class="home-testimonials__source" hidden>
                                                     <p class="home-testimonials__source__text">{{ block.settings.source | escape }}</p>
                                                 </div>
                                             {% endunless %}
+
+        
 
                                         </div>
                                     </div>
@@ -150,7 +169,8 @@
 
                 {% unless section.settings.link == blank %}
                     <div class="section__link section__link--center">
-                        <a href="{{ section.settings.link }}" class="link link--arrow section__link-link">{{ section.settings.link_title | escape }}</a>
+                        <!-- <a href="{{ section.settings.link }}" class="link link--arrow section__link-link">{{ section.settings.link_title | escape }}</a> -->
+                        <a href="{{ section.settings.link }}" class="home-promo__btn c-btn c-btn--primary c-btn--arrow home-promo__btn">{{ section.settings.link_title | escape }}</a>
                     </div>
                 {% endunless %}
 
@@ -271,6 +291,11 @@
                     "label": "Image"
                 },
                 {
+                    "type": "text",
+                    "id": "uway_facebook_url",
+                    "label": "Facebook URL"
+                },
+                {
                     "type": "checkbox",
                     "id": "image_round",
                     "label": "Circular image",
@@ -293,6 +318,14 @@
                     "id": "source",
                     "label": "Source",
                     "default": "Source"
+                },
+                {
+                    "type": "range",
+                    "id": "uway_starts",
+                    "min": 1,
+                    "max": 5,
+                    "label": "Number of Starts",
+                    "default": 3
                 }
             ]
         }

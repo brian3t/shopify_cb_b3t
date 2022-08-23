@@ -10,7 +10,7 @@
                 <div class="o-layout__item u-1/2 u-1/2@phab u-1/4@tab">
                     <div class="galaxy-character-item">
                         {% if block.settings.galaxy_images %}
-                            <img src="{{ block.settings.galaxy_images | img_url: '585x' }}" alt="{{ block.settings.image.alt }}" />
+                            <a class="popup-link" href="javascript:void(0)" data-mfp-src="{{ block.settings.galaxy_images | img_url: 'master' }}"><img src="{{ block.settings.galaxy_images | img_url: '585x' }}" alt="{{ block.settings.image.alt }}" /></a>
                         {% endif %}
                     </div>
                 </div>
@@ -18,6 +18,21 @@
         </div>
     </div>
 </section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdn.shopify.com/s/files/1/0492/7173/4429/t/5/assets/jquery.magnific-popup.min.js?v=18436942126351008168"></script>
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $('.popup-link').magnificPopup({
+            type: 'image',
+            callbacks: {
+                afterClose: function() {
+                    $("body").removeClass("js-theme-unloading");
+                }
+            }
+        });
+    });
+</script>
 
 {% schema %}
 {
@@ -38,7 +53,3 @@
     ]
  }
 {% endschema %}
-
-{% javascript %}
-
-{% endjavascript %}

@@ -4,35 +4,41 @@
             <a href="{{ article.url }}" class="home-blog__link blog-link">
                 <div class="blog__media">
                     {% if crop %}
-                        <img class="home-blog__media-img blog__img lazyload js" alt="{{ article.title }}"
-                            src="{{ article.image | img_url: '360x200', crop: 'center' }}" 
-                            data-sizes="auto"
-                            data-src="{{ article.image | img_url: '900x500', crop: 'center' }}"
-                            data-srcset="{{ article.image | img_url: '360x200', crop: 'center' }} 360w,
-                            {{ article.image | img_url: '540x300', crop: 'center' }} 540w,
-                            {{ article.image | img_url: '720x400', crop: 'center' }} 720w,
-                            {{ article.image | img_url: '900x500', crop: 'center' }} 900w,
-                            {{ article.image | img_url: '1080x600', crop: 'center' }} 1080w,
-                            {{ article.image | img_url: '1296x720', crop: 'center' }} 1296w">
-                        <noscript>
-                            <img class="home-blog__media-img blog__img"
-                                src="{{ article.image | img_url: '900x500', crop: 'center' }}">
-                        </noscript>
+                        <img
+                            class="home-blog__media-img blog__img"
+                            src="{{ article.image | img_url: '360x200', crop: 'center' }}"
+                            srcset="
+                                {{ article.image | img_url: '360x200', crop: 'center' }} 360w 200h,
+                                {{ article.image | img_url: '540x300', crop: 'center' }} 540w 300h,
+                                {{ article.image | img_url: '720x400', crop: 'center' }} 720w 400h,
+                                {{ article.image | img_url: '900x500', crop: 'center' }} 900w 500h,
+                                {{ article.image | img_url: '1080x600', crop: 'center' }} 1080w 600h,
+                                {{ article.image | img_url: '1296x720', crop: 'center' }} 1296w 720h
+                            "
+                            sizes="{{ sizes }}"
+                            width="360"
+                            height="200"
+                            alt="{{ article.image.alt }}"
+                            loading="lazy"
+                        />
                     {% else %}
-                        <img class="home-blog__media-img blog__img lazyload js" alt="{{ article.title }}"
-                            src="{{ article.image | img_url: '360x' }}" 
-                            data-sizes="auto"
-                            data-src="{{ article.image | img_url: '900x' }}"
-                            data-srcset="{{ article.image | img_url: '360x' }} 360w,
-                            {{ article.image | img_url: '540x' }} 540w,
-                            {{ article.image | img_url: '720x' }} 720w,
-                            {{ article.image | img_url: '900x' }} 900w,
-                            {{ article.image | img_url: '1080x' }} 1080w,
-                            {{ article.image | img_url: '1296x' }} 1296w">
-                        <noscript>
-                            <img class="home-blog__media-img blog__img"
-                                src="{{ article.image | img_url: '900x' }}">
-                        </noscript>
+                        <img
+                            class="home-blog__media-img blog__img"
+                            src="{{ article.image | img_url: '360x' }}"
+                            srcset="
+                                {{ article.image | img_url: '360x' }} 360w {{ 360 | divided_by: article.image.aspect_ratio | round }}h,
+                                {{ article.image | img_url: '540x' }} 540w {{ 540 | divided_by: article.image.aspect_ratio | round }}h,
+                                {{ article.image | img_url: '720x' }} 720w {{ 720 | divided_by: article.image.aspect_ratio | round }}h,
+                                {{ article.image | img_url: '900x' }} 900w {{ 900 | divided_by: article.image.aspect_ratio | round }}h,
+                                {{ article.image | img_url: '1080x' }} 1080w {{ 1080 | divided_by: article.image.aspect_ratio | round }}h,
+                                {{ article.image | img_url: '1296x' }} 1296w {{ 1296 | divided_by: article.image.aspect_ratio | round }}h
+                            "
+                            sizes="{{ sizes }}"
+                            width="360"
+                            height="{{ 360 | divided_by: article.image.aspect_ratio | round }}"
+                            alt="{{ article.image.alt }}"
+                            loading="lazy"
+                        />
                     {% endif %}
                 </div>
             </a>
@@ -48,9 +54,10 @@
         <a href="{{ article.url }}" class="home-blog__link blog-link">
             <h3 class="blog__title h4">{{ article.title }}</h3>
         </a>
-        {% if show_author %}
+      	
+        {% if show_author and article.metafields.blog.author != nil %}
             <div class="blog__author">
-                <p class="blog__author__text">{{ article.author }}</p>
+                <p class="blog__author__text">By {{ article.metafields.blog.author }}</p>
             </div>
         {% endif %}
         <div class="blog__text rte">

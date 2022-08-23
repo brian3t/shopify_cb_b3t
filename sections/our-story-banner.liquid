@@ -15,7 +15,7 @@
 
                                 <div class="o-ratio o-ratio--custom" style="padding-bottom:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;">
                                     <div class="o-ratio__content img-lazyload-cover">
-                                        
+                                        {% comment %}
                                         <img class="home-promo__media-img img-lazyload lazyload js"
                                             data-src="{{ img_url }}"
                                             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
@@ -26,7 +26,10 @@
                                                 src="{{ block.settings.image | img_url: '900x' }}" 
                                                 alt="{{ block.settings.image.alt }}">
                                         </noscript>
-
+                                      	{% endcomment %}
+										<video class="video-banner" autoplay muted loop playsinline>
+                                        	<source src="{{ 'OUR_STORY_1.mp4' | file_url }}" type="video/mp4">
+                                        </video>
                                     </div>
                                 </div>
 

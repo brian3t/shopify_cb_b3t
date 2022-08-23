@@ -5,11 +5,84 @@
 {% assign show_tags = section.settings.show_blog_tags %}
 {% assign show_date = section.settings.show_blog_date %}
 {% assign crop = section.settings.crop %}
-
 {% assign paginate_number = 12 %}
-
 {% paginate blog.articles by paginate_number %}
-<section class="section section--blog blog-page section--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="blog">
+<section class="section section--{{ section.id }} section--full-bg" data-section-id="{{ section.id }}" data-section-type="home-promo">
+    <div class="home-promo">
+        {% for block in section.blocks %}
+            <div class="home-promo__item" {{ block.shopify_attributes }}>
+                <div class="home-promo__item-bg"></div>
+                <div class="container-full">
+            
+                    <div class="home-promo__content">
+                        <div class="o-layout">
+                            <div class="o-layout__item u-1/1 u-1/1@desk">
+                                {% unless block.settings.image == blank %}
+                                    {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            
+                                    <div class="o-ratio o-ratio--custom" style="padding-bottom: 50%;">
+                                        <div class="o-ratio__content img-lazyload-cover">
+                                            {% comment %}
+                                            <img class="home-promo__media-img img-lazyload lazyload js"
+                                                data-src="{{ img_url }}"
+                                                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                                                data-sizes="auto"
+                                                alt="{{ block.settings.image.alt }}">
+                                            <noscript>
+                                                <img class="home-promo__media-img"
+                                                    src="{{ block.settings.image | img_url: '900x' }}" 
+                                                    alt="{{ block.settings.image.alt }}">
+                                            </noscript>
+            								{% endcomment %}
+                                          	<video class="video-banner" autoplay muted loop playsinline>
+                                              <source src="{{ 'blog_1.mp4' | file_url }}" type="video/mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+            
+                                {% else %}
+                                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                {% endunless %}
+                            </div>
+                            
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+<h1 class="blog-title">{{blog.title}}</h1>
+
+<div class="container container-blog-select">
+  <label class="blog-select-label">All Posts</label>
+  <select class="blog-select">
+      {% assign categories = section.settings.uway_post_categories | split: ", " %}
+      {% for category in categories %}
+          <option {% if blogs[category].title == blog.title %} selected {% endif %} value="{{ blogs[category].url }}">{{ blogs[category].title }}</option>
+      {% endfor %}
+  </select>
+</div>
+<div class="custom-sidebar-menu sidebar-menu container">
+  {% comment %}
+  <h3 class="sidebar-product__title">{{ section.settings.uway_post_title_custom }}</h3>
+  {% endcomment %}
+  <div class="custom-tags-horizontal">
+    {% for tag in blog.all_tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+            {% assign tagImg = tag | handle | append: '.jpg' %}
+            <img src="{{ tagImg | file_url }}" alt="{{ tag }}" onerror="this.src='https://via.placeholder.com/100';">
+            <div class="custom-tags-name">{{ tag }}</div>
+    	  </a>
+    {%- endfor -%}
+
+  </div>
+</div>
+
+
+<section class="section section-blog blog-page section--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="blog">
     <div class="container">
         <div class="section__title section__title--center">
             <h1 class="section__title-text h2">
@@ -44,10 +117,73 @@
                 </ul>
             </div>
         {% endif %}
-    </div>
+   
+        <div class="section-blog__content flex-mobile-reverse">
+            <aside class="sidebar">
+                <div class="sidebar-banner">
+                    {% if section.settings.uway_enable_banner == true %}
+                        {% if section.settings.uway_banner != blank %}
 
-    <div class="container{% if section.settings.grid == 1 %} container--tiny{% endif %}">
-        <div class="blog-page__list{% unless section.settings.show_bg %} blog-page__list--no-bg{% endunless %}">
+                            {% if section.settings.uway_banner_url != blank %}
+                                <a href="{{ section.settings.uway_banner_url }}">
+                                    <img src="{{ section.settings.uway_banner | img_url: '' }}" alt="{{ section.settings.uway_banner.alt }}" />
+                                </a>
+                            {% else %}
+                                <img src="{{ section.settings.uway_banner | img_url: '' }}" alt="{{ section.settings.uway_banner.alt }}" />
+                            {% endif %}
+                            
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="sidebar-menu">
+                    <h3 class="sidebar-product__title">{{ section.settings.uway_post_title_custom }}</h3>
+                    <ul>
+                        {% assign categories = section.settings.uway_post_categories | split: ", " %}
+                        {% for category in categories %}
+                            <li><a href="{{ blogs[category].url }}">{{ blogs[category].title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {%- if section.settings.uway_enable_product != false -%}
+                    <div class="sidebar-product">
+                        <h3 class="sidebar-product__title">PRODUCTS</h3>
+                        <ul class="sidebar-product__list">
+                            {% for product in collections.all.products limit: 3 %}
+                                <li>
+                                    <a class="sidebar-product__list-item" href="{{ product.url | within: collection }}" title="{{ product.title }}">
+                                        <div class="sidebar-product__list-thumbnail">
+                                            {%- assign img_url = product.featured_media.preview_image.src | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                            <img class="product__img img-lazyload lazyload js"
+                                                data-src="{{ img_url }}"
+                                                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512]"
+                                                data-sizes="auto"
+                                                alt="{{ product.featured_media.preview_image.alt | escape }}">
+                                            <noscript>
+                                                <img class="product__img"
+                                                    src="{{ product.featured_media.preview_image.src | img_url: '720x' }}" 
+                                                    alt="{{ product.featured_media.preview_image.alt | escape }}">
+                                            </noscript>
+                                        </div>
+                                    </a>
+                                        <div class="sidebar-product__list-content">
+                                            <h4 class="sidebar-product__list-title">{{ product.title }}</h4>
+                                            <div class="sidebar-product__list-price">
+                                                <div class="product-single__reviews-stars">
+                                                    <div class="product-single__reviews-stars-link js-accordion-scroll js-accordion-trigger">
+                                                        <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div>
+                                                    </div>
+                                                </div>
+                                                {% render 'product-price', product: product %}
+                                            </div>
+                                        </div>
+                                    
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {%- endif -%}
+            </aside>
+            <div class="section-blog__list{% unless section.settings.show_bg %} blog-page__list--no-bg{% endunless %}">
             
             {% case section.settings.grid %}
             {% when 1 %}
@@ -58,13 +194,13 @@
                 {%- assign grid_item_width = 'u-1/2@tab u-1/3@desk' -%}
             {% endcase %}
 
-            <div class="section__bg{% unless section.settings.show_bg %} section__bg--white{% else%} section__bg--grey{% endunless %}"></div>
+            <!-- <div class="section__bg{% unless section.settings.show_bg %} section__bg--white{% else%} section__bg--grey{% endunless %}"></div> -->
 
             <div class="blog__items">
-                <div class="o-layout o-layout--masonry">
+                <div class="o-layout o-layout--small">
                     {% for article in blog.articles %}
-                        <div class="o-layout__item u-1/1 {{ grid_item_width }}">
-                            {% render 'blog-grid-item', article: article, show_comments: show_comments, show_author: show_author, show_tags: show_tags, show_date: show_date, crop: crop %}
+                        <div class="o-layout__item">
+                            {% render 'blog-grid-item-2', article: article, show_comments: show_comments, show_author: show_author, show_tags: show_tags, show_date: show_date, crop: crop %}
                         </div>
                     {% endfor %}
                 </div>
@@ -82,6 +218,7 @@
                 </div>
             {% endif %}
 
+        </div>
         </div>
     </div>
 </section>
@@ -153,7 +290,6 @@
         {% endunless %}
     </section>
 {% endunless %}
-
 {% schema %}
 {
     "name": "Blog",
@@ -299,6 +435,57 @@
             "type": "url",
             "id": "coll_link",
             "label": "Link"
+        },
+        {
+            "type": "header",
+            "content": "Sidebar settings"
+        },
+        {
+            "id": "uway_enable_banner",
+            "type": "checkbox",
+            "label": "Enable Banner Left",
+            "default": false
+        },
+        {
+            "id": "uway_banner_url",
+            "type": "text",
+            "label": "Banner URL"
+        },
+        {
+            "id": "uway_banner",
+            "type": "image_picker",
+            "label": "Banner Left",
+            "info": "Image size: 270px x 270px "
+        },
+        {
+            "id": "uway_enable_product",
+            "type": "checkbox",
+            "label": "Enable Product Widget",
+            "default": false
+        },
+        {
+            "id": "uway_post_title_custom",
+            "type": "text",
+            "label": "Title Custom"
+        },
+        {
+            "id": "uway_post_categories",
+            "type": "text",
+            "label": "Blog Categories"
+        }
+    ],
+    "blocks":[
+        {
+            "type":"image",
+            "name":"Image block",
+            "settings":[
+                {
+                    "type":"image_picker",
+                    "id":"image",
+                    "label":"Image",
+                    "info":"2000 x 700px width recommended."
+                }
+            ]
         }
     ]
 }

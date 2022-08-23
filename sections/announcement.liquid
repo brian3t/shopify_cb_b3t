@@ -19,7 +19,7 @@
         <a href="{{ section.settings.message_link }}" class="announcement__link">
         {% endunless %}
             <div class="announcement">
-                <p class="announcement__text">{{ section.settings.message_text | escape }}</p>
+                <p class="announcement__text">{{ section.settings.message_text }}</p>
             </div>
         {% unless section.settings.message_link == blank %}
         </a>

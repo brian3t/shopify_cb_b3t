@@ -44,6 +44,7 @@
                     <div class="container container--small">
                         <div class="section__title section__title--center{% if section.settings.show_vendor %} section__title--vendor{% endif %} js-product-title">
                             <h1 class="section__title-text product-single__title-text">{{ product.title }}</h1>
+                          	{% render 'judgeme_widgets', product: product, widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}
                             {% if section.settings.show_vendor %}
                                 <h4 class="section__title-desc product-single__title-desc">{{ product.vendor | link_to_vendor }}</h4>
                             {% endif %}
@@ -215,7 +216,7 @@
                                                 {% if settings.product_reviews %}
                                                     <div class="product-single__reviews-stars">
                                                         <a href="#acc-reviews" class="product-single__reviews-stars-link js-accordion-scroll js-accordion-trigger">
-                                                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                                            {% render 'judgeme_widgets', product: product, widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false %}
                                                         </a>
                                                     </div>
                                                 {% endif %}
@@ -269,14 +270,14 @@
 
                                         <div class="product-single__price js-product-price">
                                             <h3 class="product-single__price-text js-product-price-text">
-                                                <span class="u-hidden-visually">{{ 'products.general.regular_price' | t }} / 8 single serves</span>
+                                                <span class="u-hidden-visually">{{ 'products.general.regular_price' | t }} / 4 single serves</span>
                                                 <span>
-                                                    <span class="product-single__price-number{% if product.compare_at_price_max > product.price %} product-single__price-number--sale{% endif %}"><span class="money">{{ current_variant.price | money }} / 8 single serves </span></span>
+                                                    <span class="product-single__price-number{% if product.compare_at_price_max > product.price %} product-single__price-number--sale{% endif %}"><span class="money">{{ current_variant.price | money }} / 4 single serves </span></span>
                                                 </span>
                                                 {% if product.compare_at_price_max > product.price %}
-                                                    <span class="u-hidden-visually">{{ 'products.general.sale_price' | t }} / 8 single serves</span>
+                                                    <span class="u-hidden-visually">{{ 'products.general.sale_price' | t }} / 4 single serves</span>
                                                     <span class="js-product-price-compare">
-                                                        <s class="product-single__price-compare"><span class="money">{{ current_variant.compare_at_price | money }} / 8 single serves</span></s>
+                                                        <s class="product-single__price-compare"><span class="money">{{ current_variant.compare_at_price | money }} / 4 single serves</span></s>
                                                     </span>
                                                 {% endif %}
                                             </h3>
@@ -323,28 +324,25 @@
 
                                             </div>
 
-                                            {% if section.settings.show_quantity_selector %}
-                                                <div class="product-single__qty">
-                                                    <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
-                                                    <div class="product-single__qty-input">
-                                                        <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-
                                             {% if section.settings.show_inventory %}
-                                                <p class="product-single__stock-note js-price-stock-note" data-qty-limit="{{ section.settings.inventory_limit }}" {% if current_variant.inventory_management == "shopify" and current_variant.available %}{% unless current_variant.inventory_quantity <= section.settings.inventory_limit %} style="display:none;"{% endunless %}{% endif %}>{{ 'products.product.qty_notice_html' | t: count: current_variant.inventory_quantity }}</p>
-                                            {% endif %}
-
-                                            <div class="product-single__add js-product-buttons{% unless product.available %} product-single__add--sold{% endunless %}">
-
-                                                <button type="submit" name="add" class="c-btn c-btn--full c-btn--plus c-btn--{% if section.settings.enable_payment_button %}light{% else %}primary{% endif %} product-single__add-btn js-product-add">
-                                                    <span class="js-product-add-text">{{ 'products.product.add_to_cart' | t }}</span>
-                                                </button>
-                                                {% if section.settings.enable_payment_button %}
-                                                    {{ form | payment_button }}
+                                            <p class="product-single__stock-note js-price-stock-note" data-qty-limit="{{ section.settings.inventory_limit }}" {% if current_variant.inventory_management == "shopify" and current_variant.available %}{% unless current_variant.inventory_quantity <= section.settings.inventory_limit %} style="display:none;"{% endunless %}{% endif %}>{{ 'products.product.qty_notice_html' | t: count: current_variant.inventory_quantity }}</p>
+                                        {% endif %}
+                                            <div class="customize-quatity-form">
+                                                {% if section.settings.show_quantity_selector %}
+                                                    <div class="product-single__qty">
+                                                        <div class="product-single__qty-input">
+                                                            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                                                        </div>
+                                                    </div>
                                                 {% endif %}
-
+                                                <div class="product-single__add js-product-buttons{% unless product.available %} product-single__add--sold{% endunless %}">
+                                                    <button type="submit" name="add" class="c-btn c-btn--{% if section.settings.enable_payment_button %}light{% else %}primary{% endif %} product-single__add-btn js-product-add">
+                                                        <span class="js-product-add-text">{{ 'products.product.add_to_cart' | t }}</span>
+                                                    </button>
+                                                    {% if section.settings.enable_payment_button %}
+                                                        {{ form | payment_button }}
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                         
                                         {% endform %}
@@ -519,7 +517,7 @@
                                     
 
                                     {% if settings.product_reviews %}
-                                        <a href="#acc-reviews" class="product-single__accordion__title js-accordion-trigger js-review-accordion">
+                                        <a href="#acc-reviews" class="show-product-reviews product-single__accordion__title js-accordion-trigger js-review-accordion">
                                             <h4 class="product-single__accordion__title-text">{{ 'products.layout.reviews' | t }}</h4>
                                             <span class="product-single__accordion__title-icon icon-fallback">
                                                 <i class="icon icon--plus" aria-hidden="true"></i>
@@ -529,7 +527,7 @@
                                         <div id="acc-reviews" class="product-single__accordion__item js-accordion-info">
                                             <div class="product-single__accordion__item-wrap rte">
                                                 <div class="product-single__reviews">
-                                                    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                                                     {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
                                                 </div>
                                             </div>
                                         </div>
@@ -546,6 +544,9 @@
         </div>
     </section>
 </div>
+<style>
+  #gsAppContainer {display: none;}
+</style>
 
 {% unless product == empty %}
     <script type="application/json" id="ModelJson-{{ section.id }}">
@@ -785,3 +786,4 @@
     ]
 }
 {% endschema %}
+

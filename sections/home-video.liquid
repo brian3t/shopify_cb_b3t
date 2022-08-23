@@ -1,7 +1,7 @@
 <style>
 .section--{{ section.id }} .home-video__item-img--cover:before,
 .section--{{ section.id }} .home-video__placeholder-img:before,
-.section--{{ section.id }} .home-video__item-img:before {
+.section--{{ section.id }} .home-video__item-img--overlay:before {
     {% if section.settings.overlay_strength == 100 %}
         opacity: 1;
     {% else %}
@@ -26,7 +26,7 @@
 
                     <div class="o-ratio o-ratio--16:9">
                         <div class="o-ratio__content">
-                            
+
                             {% for block in section.blocks %}
                                 <div class="home-video__stage-video js-home-video{% if forloop.index == 1 %} js-active{% endif %}" id="js-home-video-{{ section.id }}{{ forloop.index }}">
                                     {% if block.settings.video_url.type == 'youtube' %}
@@ -46,16 +46,31 @@
                                     <div class="home-video__placeholder u-flex u-flex--middle u-flex--center js-home-video-placeholder">
                                         {% if block.settings.image %}
                                             <div class="home-video__item-img--cover u-bg-contain u-bg-overlay" style="background-image: url('{{ block.settings.image | img_url: '1x1' }}')"></div>
-                                            <div class="home-video__item-img u-bg-cover u-bg-overlay img-lazyload lazyload"
-                                                data-bgset="{% render 'bgset', image: block.settings.image %}"
-                                                data-sizes="auto"
-                                                data-parent-fit="cover""></div>
+                                            <img
+                                                class="home-video__item-img"
+                                                src="{{ block.settings.image | img_url: '300x' }}"
+                                                srcset="{% render 'bgset', image: block.settings.image %}"
+                                                alt="Video placeholder"
+                                                loading="lazy"
+                                            />
                                         {% elsif block.settings.video_url.type == 'youtube' %}
-                                            <div class="home-video__placeholder-img u-bg-cover u-bg-overlay lazyload js" 
-                                            data-bgset="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/sddefault.jpg"></div>
+                                            <img
+                                                class="home-video__placeholder-img"
+                                                src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/sddefault.jpg"
+                                                alt="Video placeholder"
+                                                loading="lazy"
+                                            />
                                         {% elsif block.settings.video_url.type == 'vimeo' %}
-                                            <div class="home-video__placeholder-img u-bg-cover u-bg-overlay lazyload js js-vimeo-placeholder" data-video-id="{{ block.settings.video_url.id }}"></div>
+                                            <img
+                                                class="home-video__placeholder-img js-vimeo-placeholder"
+                                                src="#"
+                                                alt="Video placeholder"
+                                                loading="lazy"
+                                                data-video-id="{{ block.settings.video_url.id }}"
+                                                style="opacity: 0"
+                                            />
                                         {% endif %}
+                                        <div class="home-video__item-img--overlay u-bg-overlay"></div>
                                         <a href="#{{ section.id }}1" class="home-video__placeholder-btn c-btn c-btn--primary c-btn--play icon-fallback js-home-video-placeholder-trigger">
                                             <i class="icon icon--play" aria-hidden="true"></i>
                                             <span class="icon-fallback__text">{{ 'sections.video.play_label' | t }}</span>
@@ -79,12 +94,30 @@
 
                                 <div class="o-ratio__content">
                                     {% if block.settings.image %}
-                                        <div class="home-video__item-img u-bg-cover u-bg-overlay lazyload js" data-bgset="{{ block.settings.image | img_url: '300x' }}"></div>
+                                        <img
+                                            class="home-video__item-img"
+                                            src="{{ block.settings.image | img_url: '300x' }}"
+                                            alt="Video {{ forloop.index }} trigger image"
+                                            loading="lazy"
+                                        />
                                     {% elsif block.settings.video_url.type == 'youtube' %}
-                                        <div class="home-video__item-img u-bg-cover u-bg-overlay lazyload js" data-bgset="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/mqdefault.jpg"></div>
+                                        <img
+                                            class="home-video__item-img"
+                                            src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/mqdefault.jpg"
+                                            alt="Video {{ forloop.index }} trigger image"
+                                            loading="lazy"
+                                        />
                                     {% elsif block.settings.video_url.type == 'vimeo' %}
-                                        <div class="home-video__item-img u-bg-cover u-bg-overlay lazyload js js-vimeo-thumb" data-video-id="{{ block.settings.video_url.id }}"></div>
+                                        <img
+                                            class="home-video__item-img js-vimeo-thumb"
+                                            src="#"
+                                            alt="Video {{ forloop.index }} trigger image"
+                                            loading="lazy"
+                                            data-video-id="{{ block.settings.video_url.id }}"
+                                            style="opacity: 0"
+                                        />
                                     {% endif %}
+                                    <div class="home-video__item-img--overlay u-bg-overlay"></div>
                                     <div class="home-video__item-icon home-video__item-icon--play u-flex u-flex--middle u-flex--center icon-fallback">
                                         <i class="icon icon--play" aria-hidden="true"></i>
                                         <span class="icon-fallback__text">{{ 'sections.video.play_label' | t }}</span>
@@ -128,7 +161,7 @@
         {
             "type": "richtext",
             "id": "desc",
-            "label": "Text" 
+            "label": "Text"
         },
         {
             "type": "text",

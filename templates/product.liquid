@@ -1,7 +1,10 @@
 {% section 'product-template' %}
 {% section 'product-testimonials' %}
+{% section 'home-text-animation' %}
 {% section 'product-sections' %}
 {% section 'product-recommendations' %}
+{% section 'home-image-animation' %}
+{% section 'home-content' %}
 
 <script type="application/json" id="ProductJson-1">
     {{ product | json }}
@@ -21,7 +24,8 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org/",
+  "@context": "http://schema.org/", 
+ {{ product.metafields.alireviews.seo_rating_review_key_script }}
   "@type": "Product",
   "name": {{ product.title | json }},
   "url": {{ shop.url | append: product.url | json }},
@@ -92,4 +96,36 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
+ 
+ 
+ <div id="shopify-ali-review" product-id="{{ product.id }}"> {{ shop.metafields.review_collector.review_code }} </div>
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>

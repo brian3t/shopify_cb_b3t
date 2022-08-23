@@ -3,6 +3,7 @@
 <!--[if IE 9 ]><html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
 <head>
+    <meta name="facebook-domain-verification" content="2wxz7u877tzbq0102knjhyvr8rpvre" />
   	<meta charset="utf-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
@@ -37,7 +38,10 @@
       		&ndash; {{ shop.name }}
     	{%- endunless -%}
   	{%- endcapture -%}
+  	{% comment %}
   	<title>{{ seo_title | strip }}</title>
+	{% endcomment %}
+  	<title>CraftBelly Delights Ice Cream | All Natural, Tasty & Guilt Free</title>
 
   	{%- if page_description -%}
     	<meta name="description" content="{{ page_description | escape }}">
@@ -55,16 +59,27 @@
 	</script>
   	<script src="{{ 'lazysizes.min.js' | asset_url }}"></script>
   	<script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
-  	<script src="{{ 'vendor.min.js' | asset_url }}" defer="defer"></script>
-  	<script src="{{ 'ajax-cart.min.js' | asset_url }}" defer="defer"></script>
+  	<script src="{{ 'toastr.min.js' | asset_url }}" defer="defer"></script>
+	<script src="{{ 'vendor.min.js' | asset_url }}" defer="defer"></script>
+	  <!-- <script src="{{ 'ajax-cart.min.js' | asset_url }}" defer="defer"></script> -->
+	  <script src="{{ 'ajax-cart.js' | asset_url }}" defer="defer"></script>
+
+  <!-- RevenueRoll Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://ss.craftbellydelights.com/ztvqtdto.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PR3BKGS');</script>
+<!-- End RevenueRoll Tag Manager -->
 
   	<!-- CSS ================================================== -->
   	{% render 'css-variables' %} 
 	{% render 'css-include' %}
 
 	<!-- JS after CSSOM=================================================== -->
-  	<script src="{{ 'theme.min.js' | asset_url }}" defer="defer"></script>
-  	<script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+  	<script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+	<script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+	<script src="{{ 'slide_cart.js' | asset_url }}" defer="defer"></script>
 
   	{% if settings.anim_load %}
 		<script src="{{ 'scrollreveal.min.js' | asset_url }}"></script>
@@ -77,7 +92,7 @@
   	{{ content_for_header }}
   	
   	<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  	<link rel="stylesheet" href="{{ 'custom.css' | asset_url }}" />
+	<link rel="stylesheet" href="{{ 'styles.css' | asset_url }}" />
     <link rel="stylesheet" href="{{ 'magnific-popup.css' | asset_url }}"> 
   	<style type="text/css">
     	@font-face {
@@ -120,10 +135,20 @@
 		  src: url({{ 'FuturaLT.woff' | asset_url }}) format('woff');
 		} 
   	</style>
+  {% include 'judgeme_core' %}
+  <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}" />
+  <link rel="stylesheet" href="{{ 'toastr.min.css' | asset_url }}" />
+ 
+ {% render 'giftship' %} 
 </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" data-anim-fade="{{ settings.anim_fade }}" data-anim-load="{{ settings.anim_load }}" data-anim-interval-style="{{ settings.anim_interval_style }}" data-anim-zoom="{{ settings.anim_zoom }}" data-anim-interval="{% if settings.anim_load_style == 'interval' %}true{% else %}false{% endif %}" data-heading-border="{{ settings.type_header_underline }}">
 	<script>!function(){window.SLIDECART=!0;window.SLIDECART_FORMAT='{{shop.money_format}}';var e="https://cdn.jsdelivr.net/gh/apphq/slidecart-dist@master/slidecarthq.js?"+(new Date).getTime(),t=document.createElement("script");t.type="text/javascript",t.src=e,document.querySelector("body").appendChild(t)}();</script>
+<!-- RevenueRoll Tag Manager (noscript) -->
+<noscript><iframe src="https://ss.craftbellydelights.com/ns.html?id=GTM-PR3BKGS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End RevenueRoll Tag Manager (noscript) -->
+	
 	<script type="text/javascript">
 		//loading class for animations
 		document.body.className += ' ' + 'js-theme-loading';
@@ -133,6 +158,7 @@
 	</script>
 
 	<div class="page-transition"></div>
+	<div id="popup_bg"></div>
 
 	<div class="page-container">
 		{% section 'mobile-drawer' %}
@@ -230,8 +256,9 @@
     </div>
   
 	{% render 'ajax-cart-template' %}
-
+	{% render 'ajax-slide-cart-template' %}
 	<script>
+		
 		//cart functions
 		theme.ajaxCartInit = function() {
 			ajaxCart.init({
@@ -254,28 +281,39 @@
 				moneyFormat: {{ shop.money_format | json }}
 			});
 		};
+
   	</script>                      
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{{ 'jquery.magnific-popup.min.js' | asset_url }}" defer="defer"></script>
-    {% if template == 'index' or template contains "page.location" %}
-    <script>   
-      	jQuery(window).load(function(){
-			setTimeout(function(){
-				  jQuery.magnificPopup.open({items: {src: '#popup'},type: 'inline'}, 0);
-			}, 5000);
-        });
-      
-      	$('#closepopup').on( "click", function() {
-          $.magnificPopup.close();
-        });
-	</script>
+	<script src="{{ 'jquery.magnific-popup.min.js' | asset_url }}" defer="defer"></script>
+
+	
+	{% if template == 'index' or template contains "page.location" %}
+		<script> 
+			// if (Shopify.shop != 'uway01.myshopify.com') {
+			// 	jQuery(window).load(function(){
+			// 		setTimeout(function(){
+			// 			jQuery.magnificPopup.open({items: {src: '#popup'},type: 'inline'}, 0);
+			// 		}, 1000);
+			// 	});
+			// }
+			// $('#closepopup').on( "click", function() {
+			// 	$.magnificPopup.close();
+			// });
+		</script>
   	{%- endif -%}
   	<script>
     	$(document).on('click', '.zipcode', function(e){
            jQuery.magnificPopup.open({items: {src: '#popup'},type: 'inline'}, 0);
            e.preventDefault();
         });  
-  	</script>
+	  </script>
+	
+	{% if template contains "page.pre-order" or template contains "page.overview" %}
+		<script src="{{ 'jquery-3.5.1.min.js' | asset_url }}"></script>
+		<!-- <script src="{{ 'app.js' | asset_url }}"></script> -->
+		<script src="{{ 'util.js' | asset_url }}"></script>
+		<script src="{{ 'collapse.js' | asset_url }}"></script>
+	{% endif %}	  
 	<!-- Venue theme by Safe As Milk - http://safeasmilk.co/ -->
 	<!-- Theme version 4.7.1 -->
 </body>
